@@ -11,15 +11,22 @@ const config = {
   database: 'nodedb'
 }
 
-const connection = mysql.createConnection(config);
 
-const createTable = 'CREATE TABLE people(id int not null auto_increment, name varchar(255), primary key(id))'
-connection.query(createTable);
 
-const sql = `INSERT INTO people(name) VALUES('Kaio')`;
-connection.query(sql);
+try {
+  const connection = mysql.createConnection(config);
 
-connection.end();
+  const createTable = 'CREATE TABLE people(id int not null auto_increment, name varchar(255), primary key(id))'
+  connection.query(createTable);
+
+  const sql = `INSERT INTO people(name) VALUES('Kaio')`;
+  connection.query(sql);
+
+  connection.end();
+} catch (e) {
+  console.log('Error:', e.message);
+}
+
 
 app.get('/', (req, res) => {
   return res.send(`<h1>FULLCYCLE ROCKS!</h1><br/><br/>-Lista de nomes cadastrada no banco de dados.`);
