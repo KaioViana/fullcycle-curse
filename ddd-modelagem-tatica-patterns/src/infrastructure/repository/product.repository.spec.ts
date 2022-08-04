@@ -1,26 +1,9 @@
-import { Sequelize } from "sequelize-typescript"
 import Product from "../../domain/entity/product";
-import ProductModel from "../db/sequelize/model/product.model";
-import ProductRepository from "./product.repository";
+import { setupMemoryDatabase } from "../../__tests__/utils/setup";
+import { ProductRepository } from "./product.repository";
 
 describe("Product repository test", () => {
-  let sequelize: Sequelize;
-
-  beforeEach(async () => {
-    sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: ':memory',
-      logging: false,
-      sync: { force: true },
-    });
-
-    sequelize.addModels([ProductModel])
-    await sequelize.sync();
-  });
-
-  afterEach(async () => {
-    await sequelize.close();
-  });
+  setupMemoryDatabase();
 
   it("should create a product", async () => {
     const productRepository = new ProductRepository();
@@ -28,9 +11,9 @@ describe("Product repository test", () => {
 
     await productRepository.create(product);
 
-    const productModel = await ProductModel.findOne({ where: { id: "1" } });
+    const productFound = await productRepository.find("1");
 
-    expect(productModel.toJSON()).toStrictEqual({
+    expect(productFound).toStrictEqual({
       id: "1",
       name: "product1",
       price: 100
@@ -48,9 +31,9 @@ describe("Product repository test", () => {
 
     await productRepository.update(product);
 
-    const productModel = await ProductModel.findOne({ where: { id: '1' } });
+    const productFound = await productRepository.find('1');
 
-    expect(productModel.toJSON()).toStrictEqual({
+    expect(productFound).toStrictEqual({
       id: '1',
       name: 'Product 2',
       price: 200
