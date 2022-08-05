@@ -1,7 +1,8 @@
 import { Sequelize } from "sequelize-typescript"
+import { prismaClient } from "../../infrastructure/db/prisma/client/prismaClient";
 import ProductModel from "../../infrastructure/db/sequelize/model/product.model";
 
-const setupSequelize = () => {
+export const setupInMemorySequelize = () => {
   let sequelize: Sequelize;
 
   beforeEach(async () => {
@@ -21,6 +22,8 @@ const setupSequelize = () => {
   });
 }
 
-export const setupMemoryDatabase = async () => {
-  setupSequelize();
+export const setupPrismaDatabase = () => {
+  beforeEach(async () => {
+    await prismaClient.product.deleteMany();
+  });
 }

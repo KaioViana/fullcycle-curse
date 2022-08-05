@@ -1,13 +1,13 @@
 import { Sequelize } from "sequelize-typescript";
 import Product from "../../../domain/entity/product";
-import { setupMemoryDatabase } from "../../../__tests__/utils/setup";
+import { setupInMemorySequelize } from "../../../__tests__/utils/setup";
 import ProductModel from "../../db/sequelize/model/product.model";
 import { ProductRepositorySequelize } from "./product.repository.sequelize";
 
 class MockProductRepository extends ProductRepositorySequelize { }
 
 describe("Product Sequelize repository", () => {
-  setupMemoryDatabase();
+  setupInMemorySequelize();
 
   it("should create a product", async () => {
     const productRepository = new MockProductRepository();
@@ -50,24 +50,24 @@ describe("Product Sequelize repository", () => {
 
     await productRepository.create(product);
 
-    const foundProduct = await productRepository.find('1');
+    const productFound = await productRepository.find('1');
 
-    expect(foundProduct).toStrictEqual({
+    expect(productFound).toStrictEqual({
       id: '1',
       name: 'Product 1',
       price: 100
     });
   });
 
-  it("shuld find all products", async () => {
+  it("should find all products", async () => {
     const productRepository = new MockProductRepository();
     const products = [new Product('1', 'Product 1', 100), new Product('2', 'Product 2', 200)]
 
     products.forEach(async (product) => productRepository.create(product));
 
-    const foundProducts = await productRepository.findAll();
+    const productsFound = await productRepository.findAll();
 
-    expect(foundProducts).toHaveLength(2);
-    expect(products).toEqual(foundProducts);
+    expect(productsFound).toHaveLength(2);
+    expect(products).toEqual(productsFound);
   });
 });

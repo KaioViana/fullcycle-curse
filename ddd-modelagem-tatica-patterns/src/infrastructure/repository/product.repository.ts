@@ -1,7 +1,8 @@
 import product from "../../domain/entity/product";
+import { ProductRepositoryPrisma } from "./prisma/product.repository.prisma";
 import { ProductRepositorySequelize } from "./sequelize/product.repository.sequelize";
 
-class ProductRepository extends ProductRepositorySequelize {
+class ProductRepository extends ProductRepositoryPrisma {
   constructor() {
     super();
   }

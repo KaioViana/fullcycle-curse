@@ -1,9 +1,10 @@
 import Product from "../../domain/entity/product";
-import { setupMemoryDatabase } from "../../__tests__/utils/setup";
+import { setupInMemorySequelize, setupPrismaDatabase } from "../../__tests__/utils/setup";
 import { ProductRepository } from "./product.repository";
 
 describe("Product repository test", () => {
-  setupMemoryDatabase();
+  setupInMemorySequelize();
+  setupPrismaDatabase();
 
   it("should create a product", async () => {
     const productRepository = new ProductRepository();
