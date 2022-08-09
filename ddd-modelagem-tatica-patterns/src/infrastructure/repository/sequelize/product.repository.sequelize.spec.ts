@@ -7,7 +7,7 @@ import { ProductRepositorySequelize } from "./product.repository.sequelize";
 class MockProductRepository extends ProductRepositorySequelize { }
 
 describe("Product Sequelize repository", () => {
-  setupInMemorySequelize();
+  setupInMemorySequelize([ProductModel]);
 
   it("should create a product", async () => {
     const productRepository = new MockProductRepository();
