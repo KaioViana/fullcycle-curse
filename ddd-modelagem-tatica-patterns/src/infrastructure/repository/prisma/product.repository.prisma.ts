@@ -2,7 +2,7 @@ import Product from "../../../domain/entity/product";
 import ProductRepositoryInterface from "../../../domain/repository/product-repository.interface";
 import { prismaClient } from '../../db/prisma/client/prismaClient';
 
-abstract class ProductRepositoryPrisma implements ProductRepositoryInterface {
+class ProductRepositoryPrisma implements ProductRepositoryInterface {
   async create(entity: Product): Promise<void> {
     await prismaClient.product.create({
       data: {
