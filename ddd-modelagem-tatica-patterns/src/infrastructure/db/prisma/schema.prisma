@@ -14,4 +14,36 @@ model Product {
   id    String @unique
   name  String
   price Int
+
+  OrderItem OrderItem[]
+}
+
+model Customer {
+  id           String  @unique
+  name         String?
+  street       String?
+  number       String?
+  zipcode      String?
+  city         String?
+  active       Boolean @default(false)
+  rewardPoints Int?
+
+  Order Order[]
+}
+
+model Order {
+  id         String    @unique
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String    @unique
+  total      Int?
+
+  OrderItem OrderItem[]
+}
+
+model OrderItem {
+  id        String   @unique
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?  @unique
+  order     Order?   @relation(fields: [orderId], references: [id])
+  orderId   String?  @unique
 }
