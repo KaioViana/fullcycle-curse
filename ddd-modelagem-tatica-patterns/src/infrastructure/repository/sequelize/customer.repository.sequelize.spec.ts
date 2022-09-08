@@ -4,13 +4,11 @@ import { setupInMemorySequelize } from "../../../__tests__/utils/setup";
 import CustomerModel from "../../db/sequelize/model/customer.model";
 import { CustomerRepositorySequelize } from "./customer.repository.sequelize";
 
-class MockCustomerRepository extends CustomerRepositorySequelize { }
-
 describe("Customer Sequelize repository", () => {
   setupInMemorySequelize();
 
   it("should create a customer", async () => {
-    const customerRepository = new MockCustomerRepository();
+    const customerRepository = new CustomerRepositorySequelize();
     const customer = new Customer("1", "Kaio");
     const address = new Address('Street 1', 1, 'zipcode 1', 'City 1')
 
@@ -33,7 +31,7 @@ describe("Customer Sequelize repository", () => {
   });
 
   it("should find a customer", async () => {
-    const customerRepository = new MockCustomerRepository();
+    const customerRepository = new CustomerRepositorySequelize();
     const customer = new Customer('1', 'Kaio');
     const address = new Address('Street 1', 1, 'zipcode 1', 'City 1')
 
@@ -47,7 +45,7 @@ describe("Customer Sequelize repository", () => {
   });
 
   it("should find all customers", async () => {
-    const customerRepository = new MockCustomerRepository();
+    const customerRepository = new CustomerRepositorySequelize();
 
     const customer1 = new Customer('1', 'Kaio1');
     const address1 = new Address('street1', 1, 'zip1', 'city 1');
@@ -71,7 +69,7 @@ describe("Customer Sequelize repository", () => {
 
   it("should update a customer", async () => {
     // Arrange
-    const customerRepository = new MockCustomerRepository();
+    const customerRepository = new CustomerRepositorySequelize();
     const customer = new Customer('1', 'Kaio');
     const address = new Address('street1', 1, 'zip1', 'city1');
     customer.Address = address;

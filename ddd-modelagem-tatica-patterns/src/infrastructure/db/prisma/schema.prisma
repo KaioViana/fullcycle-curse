@@ -22,7 +22,7 @@ model Customer {
   id           String  @unique
   name         String?
   street       String?
-  number       String?
+  number       Int?
   zipcode      String?
   city         String?
   active       Boolean @default(false)

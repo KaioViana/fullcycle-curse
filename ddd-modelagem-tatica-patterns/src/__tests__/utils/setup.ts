@@ -28,5 +28,6 @@ export const setupInMemorySequelize = () => {
 export const setupPrismaDatabase = () => {
   beforeEach(async () => {
     await prismaClient.product.deleteMany();
+    await prismaClient.customer.deleteMany();
   });
 }
