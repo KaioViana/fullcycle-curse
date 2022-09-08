@@ -14,7 +14,8 @@
     "tsc": "tsc",
     "generate": "yarn prisma generate --schema ./src/infrastructure/db/prisma/schema.prisma",
     "migration": "yarn prisma migrate dev --schema ./src/infrastructure/db/prisma/schema.prisma",
-    "test": "yarn run generate && yarn run tsc -- --noEmit && jest"
+    "setup-prisma": "yarn run generate && yarn run migration",
+    "test": "yarn run setup-prisma && yarn run tsc -- --noEmit && jest"
   },
   "dependencies": {
     "@prisma/client": "^4.1.1",
