@@ -4,4 +4,3 @@ coverage/
 *.db
 *db-journal
 coverage
-migrations/

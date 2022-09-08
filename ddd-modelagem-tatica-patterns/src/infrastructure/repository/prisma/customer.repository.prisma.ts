@@ -35,7 +35,7 @@ class CustomerRepositoryPrisma implements CustomerRepositoryInterface {
 
   async findAll(): Promise<Customer[]> {
     const customersFound = await prismaClient.customer.findMany({});
-    return customersFound.map(item => {
+    return customersFound.map((item: any) => {
       const customer = new Customer(item.id, item.name);
       const address = new Address(item.street, item.number, item.zipcode, item.city);
       customer.Address = address;
