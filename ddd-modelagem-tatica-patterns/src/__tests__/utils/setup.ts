@@ -1,9 +1,11 @@
 import { Model, ModelCtor, Sequelize } from "sequelize-typescript"
 import { prismaClient } from "../../infrastructure/db/prisma/client/prismaClient";
 import CustomerModel from "../../infrastructure/db/sequelize/model/customer.model";
+import OrderItemModel from "../../infrastructure/db/sequelize/model/order-item.model";
+import OrderModel from "../../infrastructure/db/sequelize/model/order.model";
 import ProductModel from "../../infrastructure/db/sequelize/model/product.model";
 
-export const setupInMemorySequelize = (models: ModelCtor<Model>[]) => {
+export const setupInMemorySequelize = () => {
   let sequelize: Sequelize;
 
   beforeEach(async () => {
@@ -14,7 +16,7 @@ export const setupInMemorySequelize = (models: ModelCtor<Model>[]) => {
       sync: { force: true },
     });
 
-    sequelize.addModels(models);
+    sequelize.addModels([ProductModel, CustomerModel, OrderModel, OrderItemModel])
     await sequelize.sync();
   });
 

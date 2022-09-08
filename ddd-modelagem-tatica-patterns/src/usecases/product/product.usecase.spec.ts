@@ -7,7 +7,7 @@ import { setupInMemorySequelize, setupPrismaDatabase } from "../../__tests__/uti
 import { ProductUseCase } from "./product.usecase"
 
 describe("Product use case", () => {
-  setupInMemorySequelize([ProductModel])
+  setupInMemorySequelize()
   setupPrismaDatabase();
 
   it('should execute with prisma repository', async () => {

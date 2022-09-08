@@ -21,7 +21,7 @@ class ProductRepositoryPrisma implements ProductRepositoryInterface {
 
   async findAll(): Promise<Product[]> {
     const products = await prismaClient.product.findMany();
-    return products.map(product =>
+    return products.map((product: any) =>
       new Product(product.id, product.name, product.price)
     )
   }

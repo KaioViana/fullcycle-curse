@@ -4,16 +4,13 @@ import Order from "../../../domain/entity/order";
 import OrderItem from "../../../domain/entity/order_item";
 import Product from "../../../domain/entity/product";
 import { setupInMemorySequelize } from "../../../__tests__/utils/setup"
-import CustomerModel from "../../db/sequelize/model/customer.model";
-import OrderItemModel from "../../db/sequelize/model/order-item.model";
 import OrderModel from "../../db/sequelize/model/order.model";
-import ProductModel from "../../db/sequelize/model/product.model";
 import { CustomerRepositorySequelize } from './customer.repository.sequelize'
 import { OrderRepositorySequelize } from "./order.repository.sequelize";
 import { ProductRepositorySequelize } from "./product.repository.sequelize";
 
 describe('Order Sequelize repository', () => {
-  setupInMemorySequelize([CustomerModel, OrderModel, OrderItemModel, ProductModel]);
+  setupInMemorySequelize();
 
   it('should create a new order', async () => {
     const customerRepository = new CustomerRepositorySequelize();

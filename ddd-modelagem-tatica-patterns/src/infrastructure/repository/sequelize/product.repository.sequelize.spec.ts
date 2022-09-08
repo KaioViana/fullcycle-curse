@@ -1,4 +1,3 @@
-import { Sequelize } from "sequelize-typescript";
 import Product from "../../../domain/entity/product";
 import { setupInMemorySequelize } from "../../../__tests__/utils/setup";
 import ProductModel from "../../db/sequelize/model/product.model";
@@ -7,7 +6,7 @@ import { ProductRepositorySequelize } from "./product.repository.sequelize";
 class MockProductRepository extends ProductRepositorySequelize { }
 
 describe("Product Sequelize repository", () => {
-  setupInMemorySequelize([ProductModel]);
+  setupInMemorySequelize();
 
   it("should create a product", async () => {
     const productRepository = new MockProductRepository();

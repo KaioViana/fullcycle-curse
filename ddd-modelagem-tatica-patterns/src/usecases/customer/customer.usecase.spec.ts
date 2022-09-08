@@ -6,7 +6,7 @@ import { setupInMemorySequelize } from "../../__tests__/utils/setup"
 import { CustomerUseCase } from "./customer.usecase";
 
 describe("Customer use case", () => {
-  setupInMemorySequelize([CustomerModel]);
+  setupInMemorySequelize();
 
   it('should execute with sequelize repository', async () => {
     const customerRepositorySequelize = new CustomerRepositorySequelize();

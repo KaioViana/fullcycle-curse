@@ -7,7 +7,7 @@ import { CustomerRepositorySequelize } from "./customer.repository.sequelize";
 class MockCustomerRepository extends CustomerRepositorySequelize { }
 
 describe("Customer Sequelize repository", () => {
-  setupInMemorySequelize([CustomerModel]);
+  setupInMemorySequelize();
 
   it("should create a customer", async () => {
     const customerRepository = new MockCustomerRepository();
