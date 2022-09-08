@@ -1,4 +1,4 @@
-import { Model, ModelCtor, Sequelize } from "sequelize-typescript"
+import { Sequelize } from 'sequelize-typescript';
 import { prismaClient } from "../../infrastructure/db/prisma/client/prismaClient";
 import CustomerModel from "../../infrastructure/db/sequelize/model/customer.model";
 import OrderItemModel from "../../infrastructure/db/sequelize/model/order-item.model";
