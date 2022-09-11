@@ -110,5 +110,29 @@ describe('Order Sequelize repository', () => {
     const ordersFound = await orderRepository.findAll();
 
     expect(ordersFound).toHaveLength(2);
+  });
+
+  it('should update a order', async () => {
+    const customer = new Customer('1', 'customer1')
+    const address = new Address('street1', 1, 'zipcode1', 'city1');
+    customer.Address = address;
+    await customerRepository.create(customer);
+
+    const product = new Product('1', 'product1', 100);
+    await productRepository.create(product);
+
+    const orderItem = new OrderItem('1', product.name, product.price, product.id, 2);
+    const order = new Order('1', customer.id, [orderItem]);
+    await orderRepository.create(order);
+
+    order.addOrderItem(new OrderItem('2', product.name, product.price, product.id, 1));
+
+    await orderRepository.update(order);
+
+
+    const orderFound = await orderRepository.find(order.id);
+
+    expect(orderFound.total).toBe(300);
+    expect(orderFound.items).toHaveLength(2);
   })
 });

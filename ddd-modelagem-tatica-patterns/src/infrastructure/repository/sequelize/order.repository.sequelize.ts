@@ -1,3 +1,4 @@
+import { OrderItem, where } from "sequelize/types";
 import Order from "../../../domain/entity/order";
 import OrderRepositoryInterface from "../../../domain/repository/order-repository.interface";
 import OrderItemModel from "../../db/sequelize/model/order-item.model";
@@ -68,7 +69,24 @@ class OrderRepositorySequelize implements OrderRepositoryInterface {
   }
 
   async update(entity: Order): Promise<void> {
+    const order = await OrderModel.findOne({ where: { id: entity.id } });
+    const orderItem = entity.items[entity.items.length - 1]
+    order.total = entity.total();
+    await order.save();
 
+    const orderItemFound = await OrderItemModel.findOne({ where: { id: orderItem.id } });
+
+    if (!orderItemFound) {
+      await OrderItemModel.create({
+        id: orderItem.id,
+        name: orderItem.name,
+        order_id: order.id,
+        price: orderItem.price,
+        product_id: orderItem.productId,
+        quantity: orderItem.quantity,
+        total: orderItem.total()
+      })
+    }
   }
 }
 
