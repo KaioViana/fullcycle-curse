@@ -12,10 +12,10 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "generate": "yarn prisma generate --schema ./src/infrastructure/db/prisma/schema.prisma",
-    "migration": "yarn prisma migrate dev --schema ./src/infrastructure/db/prisma/schema.prisma",
-    "setup-prisma": "yarn run generate && yarn run migration",
-    "test": "yarn run setup-prisma && yarn run tsc -- --noEmit && jest"
+    "generate": "npx prisma generate --schema ./src/infrastructure/db/prisma/schema.prisma",
+    "migration": "npx prisma migrate dev --schema ./src/infrastructure/db/prisma/schema.prisma",
+    "setup-prisma": "npm run generate && npm run migration",
+    "test": "npm run setup-prisma && npm run tsc -- --noEmit && jest"
   },
   "dependencies": {
     "@prisma/client": "^4.1.1",
