@@ -8,3 +8,4 @@ class SendEmailWhenProductCreatedHandler implements EventHandlerInterface<Produc
 }
 
 export { SendEmailWhenProductCreatedHandler }
+
