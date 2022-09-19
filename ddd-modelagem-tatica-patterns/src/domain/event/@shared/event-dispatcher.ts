@@ -14,7 +14,12 @@ class EventDispatcher implements EventDispatcherInterface {
   }
 
   notify(event: EventInterface): void {
-
+    const eventName = event.constructor.name;
+    if (this._eventHandlers[eventName]) {
+      this._eventHandlers[eventName].forEach(eventHandler => {
+        eventHandler.handle(event);
+      });
+    }
   }
 
   register(eventName: string, eventHandler: EventHandlerInterface<EventInterface>): void {
@@ -34,7 +39,7 @@ class EventDispatcher implements EventDispatcherInterface {
   }
 
   unregisterAll(): void {
-    this._eventHandlers = {};
+    this._eventHandlers = {}
   }
 }
 

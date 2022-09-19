@@ -8,8 +8,6 @@ class ProductCreatedEvent implements EventInterface {
     this.dateTimeOccurred = new Date();
     this.eventData = eventData;
   }
-
-
 }
 
 export { ProductCreatedEvent }
