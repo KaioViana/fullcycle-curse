@@ -80,6 +80,7 @@ describe('Domain events tests', () => {
     eventDispatcher.notify(productCreatedEvent);
     eventDispatcher.notify(customerCreatedEvent);
 
+    // asserts
     expect(spySendEmailWhenProductCreatedHandlerEventHandler).toHaveBeenCalled();
     expect(spyEnviaConsoleLog1Handler).toHaveBeenCalled();
     expect(spyEnviaConsoleLog2Handler).toHaveBeenCalled();
