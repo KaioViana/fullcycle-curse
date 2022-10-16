@@ -1,4 +1,4 @@
-import Product from "../../../domain/entity/product";
+import Product from "../../../domain/product/entity/product";
 import { setupPrismaDatabase } from "../../../__tests__/utils/setup";
 import { prismaClient } from "../../db/prisma/client/prismaClient";
 import { ProductRepositoryPrisma } from "./product.repository.prisma";

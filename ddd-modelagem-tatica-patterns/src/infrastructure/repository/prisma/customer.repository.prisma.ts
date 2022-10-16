@@ -1,6 +1,6 @@
-import Address from "../../../domain/entity/address";
-import Customer from "../../../domain/entity/customer";
-import CustomerRepositoryInterface from "../../../domain/repository/customer-repository.interface";
+import Address from "../../../domain/customer/value-object/address";
+import Customer from "../../../domain/customer/entity/customer";
+import CustomerRepositoryInterface from "../../../domain/customer/repository/customer-repository.interface";
 import { prismaClient } from "../../db/prisma/client/prismaClient";
 
 class CustomerRepositoryPrisma implements CustomerRepositoryInterface {

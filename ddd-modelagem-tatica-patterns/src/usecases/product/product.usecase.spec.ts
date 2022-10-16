@@ -1,4 +1,4 @@
-import Product from "../../domain/entity/product"
+import Product from "../../domain/product/entity/product"
 import { prismaClient } from "../../infrastructure/db/prisma/client/prismaClient"
 import ProductModel from "../../infrastructure/db/sequelize/model/product.model"
 import { ProductRepositoryPrisma } from "../../infrastructure/repository/prisma/product.repository.prisma"

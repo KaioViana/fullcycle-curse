@@ -1,8 +1,8 @@
-import OrderRepositoryInterface from "../../domain/repository/order-repository.interface";
-import Order from '../../domain/entity/order';
-import { EventDispatcher } from "../../domain/event/@shared/event-dispatcher";
-import { SendEmail } from "../../domain/event/order/handler/send-email.handler";
-import { OrderClosedEvent } from "../../domain/event/order/order-closed.event";
+import OrderRepositoryInterface from "../../domain/checkout/repository/order-repository.interface";
+import Order from '../../domain/checkout/entity/order';
+import { EventDispatcher } from "../../domain/@shared/event/event-dispatcher";
+import { SendEmail } from "../../domain/checkout/event/handler/send-email.handler";
+import { OrderClosedEvent } from "../../domain/checkout/event/order-closed.event";
 
 class OrderClosingUseCase {
   constructor(private orderRepository: OrderRepositoryInterface) { }

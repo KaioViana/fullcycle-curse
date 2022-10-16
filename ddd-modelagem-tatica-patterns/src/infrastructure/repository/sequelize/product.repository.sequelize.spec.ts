@@ -1,4 +1,4 @@
-import Product from "../../../domain/entity/product";
+import Product from "../../../domain/product/entity/product";
 import { setupInMemorySequelize } from "../../../__tests__/utils/setup";
 import ProductModel from "../../db/sequelize/model/product.model";
 import { ProductRepositorySequelize } from "./product.repository.sequelize";

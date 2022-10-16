@@ -1,8 +1,8 @@
-import { CustomerCreatedEvent } from "../customer/customer-created.event";
-import { EnviaConsoleLog1Handler } from "../customer/handler/envia-console-log-1.handler";
-import { EnviaConsoleLog2Handler } from "../customer/handler/envia-console-log-2.handler";
-import { SendEmailWhenProductCreatedHandler } from "../product/handler/send-email-when-product-created.handler";
-import { ProductCreatedEvent } from "../product/product-created.event";
+import { CustomerCreatedEvent } from "../../customer/event/customer-created.event";
+import { EnviaConsoleLog1Handler } from "../../customer/event/handler/envia-console-log-1.handler";
+import { EnviaConsoleLog2Handler } from "../../customer/event/handler/envia-console-log-2.handler";
+import { SendEmailWhenProductCreatedHandler } from "../../product/event/handler/send-email-when-product-created.handler";
+import { ProductCreatedEvent } from "../../product/event/product-created.event";
 import { EventDispatcher } from "./event-dispatcher";
 
 describe('Domain events tests', () => {
