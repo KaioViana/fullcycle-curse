@@ -1,0 +1,97 @@
+{
+  "customers": [
+    {
+      "id": "1",
+      "name": "customer-1",
+      "email": "customer-1@example.com"
+    },
+    {
+      "id": "2",
+      "name": "customer-2",
+      "email": "customer-2@example.com"
+    },
+    {
+      "id": "3",
+      "name": "customer-3",
+      "email": "customer-3@example.com"
+    },
+    {
+      "id": "4",
+      "name": "customer-4",
+      "email": "customer-4@example.com"
+    },
+    {
+      "id": "5",
+      "name": "customer-5",
+      "email": "customer-5@example.com"
+    },
+    {
+      "id": "6",
+      "name": "customer-6",
+      "email": "customer-6@example.com"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "product-1",
+      "price": 10.00,
+      "code": "123"
+    },
+    {
+      "id": "2",
+      "name": "product-2",
+      "price": 10.00,
+      "code": "1234"
+    },
+    {
+      "id": "3",
+      "name": "product-3",
+      "price": 10.00,
+      "code": "12345"
+    },
+    {
+      "id": "4",
+      "name": "product-4",
+      "price": 10.00,
+      "code": "123456"
+    }
+  ],
+  "items": [
+    {
+      "id": "1",
+      "product_id": "1",
+      "order_id": "1",
+      "quantity": "1",
+      "total": 10.00
+    },
+    {
+      "id": "2",
+      "product_id": "2",
+      "order_id": "1",
+      "quantity": "1",
+      "total": 10.00
+    },
+    {
+      "id": "3",
+      "product_id": "3",
+      "order_id": "1",
+      "quantity": "1",
+      "total": 10.00
+    },
+    {
+      "id": "4",
+      "product_id": "4",
+      "order_id": "1",
+      "quantity": "1",
+      "total": 10.00
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "customer_id": "1",
+      "total": 40.00
+    }
+  ]
+}

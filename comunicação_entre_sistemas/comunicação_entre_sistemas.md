@@ -24,8 +24,8 @@
 	2. Nível 1:
 		- Utilização de resources:
 		
-			|Verbo |URI         |Operação|
-			|:-----|:----------|--------:|
+			|Verbo |URI         |Operação |
+			|:-----|:-----------|--------:|
 			|GET   |/products/1 |Buscar   |
 			|POST  |/products   |Inserir  |
 			|PUT   |/products/1 |Alterar  |
