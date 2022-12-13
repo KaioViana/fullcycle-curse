@@ -4,14 +4,17 @@ import {
   Get,
   Header,
   MethodNotAllowedException,
+  NotAcceptableException,
   Options,
   Param,
   Request
 } from '@nestjs/common';
 import { Request as Req } from 'express';
 import { AppService } from './app.service';
+import { AppJsonHalDecorator } from './decorator/app.jsonHal.decorator';
 import { Customers } from './enums/AllowedMethods.enum';
 import { CustomerRoutes } from './enums/ApplicationRoutes.enum';
+import { AcceptTypes } from './enums/ApplicationTypes.enum';
 
 @Controller()
 export class AppController {
@@ -30,12 +33,25 @@ export class AppController {
 
   @Get(CustomerRoutes.ROOT)
   getCustomers(@Request() req: Req): any {
-    return this.appService.getCustomers(req);
+    const {
+      accept: acceptType
+    } = req.headers;
+
+    switch (acceptType) {
+      case String(AcceptTypes.JSON):
+        return this.appService.getCustomers();
+      case String(AcceptTypes.HAL_JSON):
+        console.log('JSON_HAL');
+        let service = new AppJsonHalDecorator(this.appService);
+        return service.getCustomers();
+      default:
+        throw new NotAcceptableException();
+    }
   }
 
   @Get(CustomerRoutes.BY_ID)
   getCustomerById(@Request() req: Req, @Param() { id }: { id: string }): any {
-    return this.appService.getCustomerById(req, id);
+    return this.appService.getCustomerById(id);
   }
 
   @Get('products')

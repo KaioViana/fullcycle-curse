@@ -3,53 +3,40 @@ import { Request } from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { ContentTypes, AcceptTypes } from './enums/ApplicationTypes.enum';
+import { AppServiceInterface } from './interface/appService.interface';
 
 @Injectable()
-export class AppService {
+export class AppService implements AppServiceInterface {
   private data: any;
   constructor() {
     const rawdata = readFileSync(join(__dirname, './helpers/database.json'));
     this.data = JSON.parse(rawdata.toString());
   }
-  getCustomers(req: Request): any {
-    const {
-      accept: acceptType,
-    } = req.headers;
 
-    switch (acceptType) {
-      case String(AcceptTypes.JSON):
-        return {
-          customers: this.data.customers
-        }
-      default:
-        throw new NotAcceptableException();
+  getCustomers(): any {
+    return {
+      customers: this.data.customers
     }
   }
 
-  getCustomerById(req: Request, id: string): any {
-    const {
-      accept: acceptType,
-    } = req.headers;
+  getCustomerById(id: string): any {
 
-    switch (acceptType) {
-      case String(AcceptTypes.JSON):
-        return this.data.customers.find(customer => customer.id === id)
-    }
+    return this.data.customers.find(customer => customer.id === id)
   }
 
-  getProducts() {
+  getProducts(): any {
     return {
       products: this.data.products
     }
   }
 
-  getItems() {
+  getItems(): any {
     return {
       items: this.data.items
     }
   }
 
-  getOrders() {
+  getOrders(): any {
     return {
       orders: this.data.orders
     }

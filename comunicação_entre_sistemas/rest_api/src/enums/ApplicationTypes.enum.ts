@@ -1,5 +1,6 @@
 enum ApplicationTypes {
-  JSON = 'application/json'
+  JSON = 'application/json',
+  HAL_JSON = 'application/hal+json'
 }
 
 export enum ContentTypes {
@@ -7,5 +8,6 @@ export enum ContentTypes {
 }
 
 export enum AcceptTypes {
-  JSON = ApplicationTypes.JSON
+  JSON = ApplicationTypes.JSON,
+  HAL_JSON = ApplicationTypes.HAL_JSON
 }
