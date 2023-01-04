@@ -1,44 +1,48 @@
 import { Injectable, NotAcceptableException, UnsupportedMediaTypeException } from '@nestjs/common';
-import { Request } from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { ContentTypes, AcceptTypes } from './enums/ApplicationTypes.enum';
 import { AppServiceInterface } from './interface/appService.interface';
 
 @Injectable()
 export class AppService implements AppServiceInterface {
-  private data: any;
-  constructor() {
+
+  private _getData() {
     const rawdata = readFileSync(join(__dirname, './helpers/database.json'));
-    this.data = JSON.parse(rawdata.toString());
+    return JSON.parse(rawdata.toString());
   }
 
   getCustomers(): any {
+    const data = this._getData();
     return {
-      customers: this.data.customers
+      customers: data.customers
     }
   }
 
   getCustomerById(id: string): any {
 
-    return this.data.customers.find(customer => customer.id === id)
+    const data = this._getData();
+    return data.customers.find(customer => customer.id === id)
   }
 
   getProducts(): any {
+
+    const data = this._getData();
     return {
-      products: this.data.products
+      products: data.products
     }
   }
 
   getItems(): any {
+    const data = this._getData();
     return {
-      items: this.data.items
+      items: data.items
     }
   }
 
   getOrders(): any {
+    const data = this._getData();
     return {
-      orders: this.data.orders
+      orders: data.orders
     }
   }
 }

@@ -2,6 +2,8 @@ import { AppService } from "src/app.service";
 import { AppServiceInterface } from "src/interface/appService.interface";
 
 abstract class AppServiceDecorator implements AppServiceInterface {
+  protected readonly SERVICE_URL = 'http://localhost:3000';
+
   constructor(private readonly appService: AppService) { }
 
   getCustomers() {
