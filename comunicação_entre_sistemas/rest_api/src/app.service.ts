@@ -19,13 +19,16 @@ export class AppService implements AppServiceInterface {
   }
 
   getCustomerById(id: string): any {
-
     const data = this._getData();
     return data.customers.find(customer => customer.id === id)
   }
 
-  getProducts(): any {
+  getCustomerOrders(id: string): any {
+    const data = this._getData();
+    return { orders: data.orders.filter(order => order.customer_id === id) }
+  }
 
+  getProducts(): any {
     const data = this._getData();
     return {
       products: data.products
@@ -44,5 +47,10 @@ export class AppService implements AppServiceInterface {
     return {
       orders: data.orders
     }
+  }
+
+  getOrderById(id: string) {
+    const data = this._getData();
+    return data.orders.find(order => order.id === id);
   }
 }

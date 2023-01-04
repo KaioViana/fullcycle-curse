@@ -14,6 +14,10 @@ abstract class AppServiceDecorator implements AppServiceInterface {
     return this.appService.getCustomerById(id);
   }
 
+  getCustomerOrders(id: string) {
+    return this.appService.getCustomerOrders(id);
+  }
+
   getProducts() {
     return this.appService.getProducts();
   }
@@ -23,8 +27,13 @@ abstract class AppServiceDecorator implements AppServiceInterface {
   }
 
   getOrders() {
-    return this.getOrders();
+    return this.appService.getOrders();
   }
+
+  getOrderById(id: string) {
+    return this.appService.getOrderById(id);
+  }
+
 }
 
 export { AppServiceDecorator }
