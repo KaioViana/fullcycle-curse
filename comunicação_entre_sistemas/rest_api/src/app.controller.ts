@@ -84,6 +84,9 @@ export class AppController {
     switch (acceptType) {
       case String(AcceptTypes.JSON):
         return this.appService.getOrders();
+      case String(AcceptTypes.HAL_JSON):
+        const service = new AppJsonHalDecorator(this.appService);
+        return service.getOrders();
       default:
         throw new NotAcceptableException();
     }
@@ -96,6 +99,9 @@ export class AppController {
     switch (acceptType) {
       case String(AcceptTypes.JSON):
         return this.appService.getOrderById(id);
+      case String(AcceptTypes.HAL_JSON):
+        const service = new AppJsonHalDecorator(this.appService);
+        return service.getOrderById(id);
       default:
         throw new NotAcceptableException();
     }
