@@ -8,3 +8,8 @@ export enum OrderRoutes {
   ROOT = "orders",
   BY_ID = "orders/:id"
 }
+
+export enum ItemsRoutes {
+  ROOT = "items",
+  BY_ID = "items/:id"
+}

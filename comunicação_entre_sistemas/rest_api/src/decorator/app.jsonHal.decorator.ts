@@ -14,8 +14,9 @@ class AppJsonHalDecorator extends AppServiceDecorator {
     const response = {
       _links: {
         self: { rel: 'self', href: `/${CustomerRoutes.BY_ID.replace(':id', id)}` },
-        curies: [{ rel: 'documentation', name: 'ea', href: 'http://example.com' }],
-        'ea:find_all': { rel: 'customers', href: `${this.SERVICE_URL}/${CustomerRoutes.ROOT}` }
+        curies: [{ rel: 'documentation', name: 'ea', href: 'http://example.com/rels/{rel}' }],
+        'ea:find_all': { rel: 'customers', href: `${this.SERVICE_URL}/${CustomerRoutes.ROOT}` },
+        'ea:customer_orders': { rel: 'customer_orders', href: `${this.SERVICE_URL}/${CustomerRoutes.CUSTOMER_ORDERS}` }
       },
       ...customerData
     }
@@ -23,12 +24,29 @@ class AppJsonHalDecorator extends AppServiceDecorator {
     return response;
   }
 
-  getProducts(): void {
+  getCustomerOrders(id: string) {
+    const customerData = super.getCustomerOrders(id);
 
+    const response = {
+      _links: {
+        self: { rel: 'self', href: `${this.SERVICE_URL}/${CustomerRoutes.CUSTOMER_ORDERS}` },
+        curies: [{ rel: 'documentation', name: 'ea', href: 'http://example.com/rels/{rel}' }],
+        'ea:find_all': { rel: 'customers', href: `${this.SERVICE_URL}/${CustomerRoutes.ROOT}` },
+        'ea:customer_by_id': { rel: 'customer_by_id', href: `${this.SERVICE_URL}/${CustomerRoutes.CUSTOMER_ORDERS}` },
+        'ea:orders': { rel: 'orders', href: `${this.SERVICE_URL}/${OrderRoutes.ROOT}` }
+      },
+      orders: customerData.orders.map(order => order)
+    }
+
+    return response;
   }
 
-  getItems(): void {
+  getProducts(): void {
+  }
 
+  getItems() {
+    const itemsData = super.getItems();
+    return itemsData;
 
   }
 
@@ -38,23 +56,14 @@ class AppJsonHalDecorator extends AppServiceDecorator {
     const response = {
       _links: {
         self: {
-          href: `/ ${OrderRoutes.ROOT} `
+          rel: 'self',
+          href: `${this.SERVICE_URL}/${OrderRoutes.ROOT}`
         },
-        curies: [{ name: 'ea', href: 'http://example.com/docs/rels/{rel}', templated: true }],
-        current: { href: `/ ${OrderRoutes.ROOT} /page=1` },
-        next: { href: `/${OrderRoutes.ROOT}/page=2` },
-        count: data.orders.length,
-        'ea:find': { href: `/${OrderRoutes.BY_ID}`, templated: true },
-        _embedded: {
-          "ea:order": data.orders.map(order => ({
-            _links: {
-              self: { href: `/${OrderRoutes.BY_ID.replace(':id', order.id)}` },
-              "ea:customer": { href: `${CustomerRoutes.BY_ID.replace(':id', order.customer_id)}` }
-            },
-            ...order,
-          }))
-        }
-      }
+        curies: [{ resl: 'documentation', name: 'ea', href: 'http://example.com/docs/rels/{rel}' }],
+        'ea:order_by_id': { rel: 'order_by_id', href: `${this.SERVICE_URL}/${OrderRoutes.BY_ID}` },
+        'ea:customer_by_id': { rel: 'customer_by_id', href: `${this.SERVICE_URL}/${CustomerRoutes.BY_ID}` }
+      },
+      orders: data.orders.map(order => order)
     }
 
     return response

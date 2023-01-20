@@ -13,7 +13,7 @@ import { Request as Req } from 'express';
 import { AppService } from './app.service';
 import { AppJsonHalDecorator } from './decorator/app.jsonHal.decorator';
 import { Customers } from './enums/AllowedMethods.enum';
-import { CustomerRoutes, OrderRoutes } from './enums/ApplicationRoutes.enum';
+import { CustomerRoutes, ItemsRoutes, OrderRoutes } from './enums/ApplicationRoutes.enum';
 import { AcceptTypes } from './enums/ApplicationTypes.enum';
 
 @Controller()
@@ -50,7 +50,17 @@ export class AppController {
 
   @Get(CustomerRoutes.CUSTOMER_ORDERS)
   getCustomerOrders(@Request() req: Req, @Param() { id }: { id: string }): any {
-    return this.appService.getCustomerOrders(id);
+    const { accept: acceptType } = req.headers;
+    switch (acceptType) {
+      case String(AcceptTypes.JSON):
+        return this.appService.getCustomerOrders(id);
+      case String(AcceptTypes.HAL_JSON):
+        const service = new AppJsonHalDecorator(this.appService);
+        return service.getCustomerOrders(id);
+      default:
+        throw new NotAcceptableException();
+    }
+
   }
 
   @Get(CustomerRoutes.BY_ID)
@@ -72,9 +82,18 @@ export class AppController {
     return this.appService.getProducts();
   }
 
-  @Get('items')
-  getItems() {
-    return this.appService.getItems();
+  @Get(ItemsRoutes.ROOT)
+  getItems(@Request() req: Req) {
+    const { accept: acceptType } = req.headers;
+    switch (acceptType) {
+      case String(AcceptTypes.JSON):
+        return this.appService.getItems()
+      case String(AcceptTypes.HAL_JSON):
+        const service = new AppJsonHalDecorator(this.appService);
+        return service.getItems()
+      default:
+        throw new NotAcceptableException();
+    }
   }
 
   @Get(OrderRoutes.ROOT)
