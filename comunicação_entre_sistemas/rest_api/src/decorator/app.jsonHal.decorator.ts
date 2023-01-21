@@ -1,11 +1,20 @@
-import { CustomerRoutes, OrderRoutes } from "src/enums/ApplicationRoutes.enum";
+import { CustomerRoutes, OrderRoutes, ItemsRoutes, ProductRoutes } from "src/enums/ApplicationRoutes.enum";
 import { AppServiceDecorator } from "./app.service.decorator";
 
 class AppJsonHalDecorator extends AppServiceDecorator {
   getCustomers() {
-    let data = super.getCustomers();
+    const customerData = super.getCustomers();
 
-    return data;
+    const response = {
+      _links: {
+        self: { rel: 'self', href: `${this.SERVICE_URL}/${CustomerRoutes.ROOT}` },
+        curies: [{ rel: 'documentation', name: 'ea', href: 'http://example.com/rels/{rel}' }],
+        'ea:customer_by_id': { rel: 'customer_by_id', href: `${this.SERVICE_URL}/${CustomerRoutes.BY_ID}` }
+      },
+      ...customerData,
+    }
+
+    return response;
   }
 
   getCustomerById(id: string) {
@@ -42,11 +51,33 @@ class AppJsonHalDecorator extends AppServiceDecorator {
   }
 
   getProducts(): void {
+    const productsData = super.getProducts();
+
+    const response = {
+      _links: {
+        self: { rel: 'self', href: `${this.SERVICE_URL}/${ProductRoutes.ROOT}` },
+        curies: [{ rel: 'documentation', name: 'ea', href: 'http://example.com/rels/{rel}' }],
+      },
+      ...productsData
+    }
+
+    return response;
   }
 
   getItems() {
     const itemsData = super.getItems();
-    return itemsData;
+
+    const response = {
+      _links: {
+        self: { rel: 'self', href: `${this.SERVICE_URL}/${ItemsRoutes.ROOT}` },
+        curies: [{ rel: 'documentation', name: 'ea', href: 'http://example.com/rels/{rel}' }],
+        'ea:order_by_id': { rel: 'order_by_id', href: `${this.SERVICE_URL}/${OrderRoutes.BY_ID}` },
+        'ea:product_by_id': { rel: 'product_by_id', href: `${this.SERVICE_URL}/${ProductRoutes.BY_ID}` }
+      },
+      ...itemsData,
+    }
+
+    return response;
 
   }
 
@@ -63,7 +94,7 @@ class AppJsonHalDecorator extends AppServiceDecorator {
         'ea:order_by_id': { rel: 'order_by_id', href: `${this.SERVICE_URL}/${OrderRoutes.BY_ID}` },
         'ea:customer_by_id': { rel: 'customer_by_id', href: `${this.SERVICE_URL}/${CustomerRoutes.BY_ID}` }
       },
-      orders: data.orders.map(order => order)
+      ...data
     }
 
     return response

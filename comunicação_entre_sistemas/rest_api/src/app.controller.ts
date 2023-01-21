@@ -13,7 +13,7 @@ import { Request as Req } from 'express';
 import { AppService } from './app.service';
 import { AppJsonHalDecorator } from './decorator/app.jsonHal.decorator';
 import { Customers } from './enums/AllowedMethods.enum';
-import { CustomerRoutes, ItemsRoutes, OrderRoutes } from './enums/ApplicationRoutes.enum';
+import { CustomerRoutes, ItemsRoutes, OrderRoutes, ProductRoutes } from './enums/ApplicationRoutes.enum';
 import { AcceptTypes } from './enums/ApplicationTypes.enum';
 
 @Controller()
@@ -77,9 +77,18 @@ export class AppController {
     }
   }
 
-  @Get('products')
-  getProducts() {
-    return this.appService.getProducts();
+  @Get(ProductRoutes.ROOT)
+  getProducts(@Request() req: Req): any {
+    const { accept: acceptType } = req.headers;
+    switch (acceptType) {
+      case String(AcceptTypes.JSON):
+        return this.appService.getProducts();
+      case String(AcceptTypes.HAL_JSON):
+        const service = new AppJsonHalDecorator(this.appService);
+        return service.getProducts();
+      default:
+        throw new NotAcceptableException();
+    }
   }
 
   @Get(ItemsRoutes.ROOT)
