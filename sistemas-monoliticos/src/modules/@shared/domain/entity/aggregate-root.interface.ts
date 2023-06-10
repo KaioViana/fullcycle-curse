@@ -1,0 +1,3 @@
+interface AggregateRoot { }
+
+export { AggregateRoot }

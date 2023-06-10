@@ -1,0 +1,2 @@
+interface ValueObject { }
+export { ValueObject }
