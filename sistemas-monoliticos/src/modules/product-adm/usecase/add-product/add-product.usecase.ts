@@ -20,7 +20,7 @@ class AddProductUseCase {
     this.productRepository.add(product);
 
     return {
-      id: product?.id?.id,
+      id: product.id.id,
       name: product.name,
       description: product.description,
       purchasePrice: product.purchasePrice,

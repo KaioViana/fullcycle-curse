@@ -9,22 +9,22 @@ class ProductModel extends Model {
   @Column({ allowNull: false })
   id!: string;
 
-  @Column
+  @Column({ allowNull: false })
   name!: string;
 
-  @Column
+  @Column({ allowNull: false })
   description!: string;
 
-  @Column
+  @Column({ allowNull: false })
   purchasePrice!: number;
 
-  @Column
+  @Column({ allowNull: false })
   stock!: number;
 
-  @Column
-  createdeAt!: Date;
+  @Column({ allowNull: false })
+  createdAt!: Date;
 
-  @Column
+  @Column({ allowNull: false })
   updatedAt!: Date;
 }
 
