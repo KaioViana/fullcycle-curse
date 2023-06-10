@@ -1,3 +1,5 @@
-export const transform = {
-  "^.+\\.(t|j)sx?$": "@swc/jest"
+module.exports = {
+  transform: {
+    "^.+\\.(t|j)sx?$": "@swc/jest"
+  }
 };
