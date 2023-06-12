@@ -1,4 +1,3 @@
-import { Id } from "../../../@shared/domain/value-object/id.value-object";
 import { IUseCase } from "../../../@shared/usecase/use-case.interface";
 import { Product } from "../../domain/product.entity";
 import { IProductGateway } from "../../gateway/product.gateway";
