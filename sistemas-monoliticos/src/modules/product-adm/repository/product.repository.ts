@@ -1,9 +1,9 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { Product } from "../domain/product.entity";
-import { ProductGateway } from "../gateway/product.gateway";
-import { ProductModel } from "./product.model";
+import { IProductGateway } from "../gateway/product.gateway";
+import { ProductModel } from "./infra/product.model";
 
-class ProductRepository implements ProductGateway {
+class ProductRepository implements IProductGateway {
   async add(product: Product): Promise<void> {
     await ProductModel.create({
       id: product.id.id,
@@ -26,13 +26,13 @@ class ProductRepository implements ProductGateway {
     }
 
     return new Product({
-      id: new Id(product.toJSON().id),
-      name: product.toJSON().name,
-      description: product.toJSON().description,
-      purchasePrice: product.toJSON().purchasePrice,
-      stock: product.toJSON().stock,
-      createdAt: product.toJSON().createdAt,
-      updatedAt: product.toJSON().updatedAt,
+      id: new Id(product.id),
+      name: product.name,
+      description: product.description,
+      purchasePrice: product.purchasePrice,
+      stock: product.stock,
+      createdAt: product.createdAt,
+      updatedAt: product.updatedAt,
     });
   }
 }

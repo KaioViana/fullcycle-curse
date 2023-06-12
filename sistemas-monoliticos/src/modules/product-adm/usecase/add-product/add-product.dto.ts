@@ -1,14 +1,15 @@
-interface AddProductInputDto {
+interface IAddProductInputDto {
+  id?: string;
   name: string;
   description: string;
   purchasePrice: number;
   stock: number
 }
 
-interface AddProductOutputDto extends AddProductInputDto {
+interface IAddProductOutputDto extends IAddProductInputDto {
   id?: string | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export { AddProductInputDto, AddProductOutputDto };
+export { IAddProductInputDto, IAddProductOutputDto };

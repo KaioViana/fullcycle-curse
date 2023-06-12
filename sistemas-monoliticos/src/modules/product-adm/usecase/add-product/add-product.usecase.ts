@@ -1,23 +1,24 @@
 import { Id } from "../../../@shared/domain/value-object/id.value-object";
+import { IUseCase } from "../../../@shared/usecase/use-case.interface";
 import { Product } from "../../domain/product.entity";
-import { ProductGateway } from "../../gateway/product.gateway";
-import { AddProductInputDto, AddProductOutputDto } from "./add-product.dto";
+import { IProductGateway } from "../../gateway/product.gateway";
+import { IAddProductInputDto, IAddProductOutputDto } from "./add-product.dto";
 
-class AddProductUseCase {
+class AddProductUseCase implements IUseCase {
   constructor(
-    private readonly productRepository: ProductGateway,
+    private readonly productRepository: IProductGateway,
   ) { }
-  async execute(input: AddProductInputDto): Promise<AddProductOutputDto> {
+  async execute(input: IAddProductInputDto): Promise<IAddProductOutputDto> {
     const props = {
-      id: new Id(),
+      id: new Id(input.id),
       name: input.name,
-      description: input.name,
+      description: input.description,
       purchasePrice: input.purchasePrice,
       stock: input.stock,
     }
     const product = new Product(props);
 
-    this.productRepository.add(product);
+    await this.productRepository.add(product);
 
     return {
       id: product.id.id,
