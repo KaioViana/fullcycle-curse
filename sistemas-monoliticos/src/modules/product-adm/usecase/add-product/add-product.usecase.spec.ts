@@ -20,6 +20,7 @@ describe("Add Product usecase unit test", () => {
     };
 
     const result = await usecase.execute(input);
+
     expect(productRepository.add).toHaveBeenCalledTimes(1);
     expect(result.id).toBeDefined();
     expect(result.name).toBeDefined();

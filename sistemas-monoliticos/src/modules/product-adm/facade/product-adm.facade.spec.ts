@@ -1,28 +1,18 @@
 import { ProductModel } from "../repository/infra/product.model";
-import { ProductRepository } from "../repository/product.repository";
-import { AddProductUseCase } from "../usecase/add-product/add-product.usecase";
-import { ProductAdmFacade } from "./product-adm.facade";
-import { IUseCase } from "../../@shared/usecase/use-case.interface";
 import { DatabaseConnection } from "../repository/infra/database.connection";
 import { Id } from "../../@shared/domain/value-object/id.value-object";
+import { ProductAdmFacadeFactory } from "../factory/facade.factory";
 
 describe("ProductAdmFacade test", () => {
   beforeAll(async () => {
     await DatabaseConnection.sync();
   });
 
-
   afterAll(async () => await DatabaseConnection.closeConnection());
 
   it("should create a product", async () => {
     const productIdMock = new Id();
-    const productRepository = new ProductRepository();
-    const addProductUseCase = new AddProductUseCase(productRepository);
-
-    const productadmFacade = new ProductAdmFacade(
-      addProductUseCase,
-      {} as IUseCase
-    );
+    const productAdmFacade = ProductAdmFacadeFactory.create();
 
     const input = {
       id: productIdMock.id,
@@ -32,7 +22,7 @@ describe("ProductAdmFacade test", () => {
       stock: 10,
     };
 
-    await productadmFacade.addproduct(input);
+    await productAdmFacade.addproduct(input);
 
     const product = await ProductModel.findOne({
       where: { id: productIdMock.id }
@@ -45,4 +35,30 @@ describe("ProductAdmFacade test", () => {
     expect(product.purchasePrice).toEqual(input.purchasePrice);
     expect(product.stock).toEqual(input.stock);
   });
-})
+
+  it('should return product stock', async () => {
+    const productIdMock = new Id();
+    const productAdmFacade = ProductAdmFacadeFactory.create();
+
+    const input = {
+      productId: productIdMock.id,
+    }
+
+    const product = {
+      id: productIdMock.id,
+      name: "Product 1",
+      description: "Description",
+      purchasePrice: 100,
+      stock: 10,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    await ProductModel.create(product);
+
+    const result = await productAdmFacade.checkStock(input);
+    expect(result).toStrictEqual({
+      productId: productIdMock.id,
+      stock: product.stock
+    });
+  });
+});
