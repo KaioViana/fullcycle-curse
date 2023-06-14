@@ -1,7 +1,7 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { Product } from "../domain/product.entity";
 import { IProductGateway } from "../gateway/product.gateway";
-import { ProductModel } from "./infra/product.model";
+import { ProductModel } from "../infra/product.model";
 
 class ProductRepository implements IProductGateway {
   async add(product: Product): Promise<void> {

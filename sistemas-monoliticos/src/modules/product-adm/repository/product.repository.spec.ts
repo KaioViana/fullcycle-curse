@@ -1,8 +1,8 @@
-import { ProductModel } from "./infra/product.model";
+import { ProductModel } from "../infra/product.model";
 import { Product } from "../domain/product.entity";
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ProductRepository } from "./product.repository";
-import { DatabaseConnection } from "./infra/database.connection";
+import { DatabaseConnection } from "../infra/database.connection";
 
 describe("ProductRepository test", () => {
   beforeAll(async () => {

@@ -1,5 +1,5 @@
-import { ProductModel } from "../repository/infra/product.model";
-import { DatabaseConnection } from "../repository/infra/database.connection";
+import { ProductModel } from "../infra/product.model";
+import { DatabaseConnection } from "../infra/database.connection";
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ProductAdmFacadeFactory } from "../factory/facade.factory";
 
