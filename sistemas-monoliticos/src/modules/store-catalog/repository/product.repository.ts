@@ -18,7 +18,16 @@ class ProductRepository implements IProductGateway {
   }
 
   async find(id: string): Promise<Product> {
-    return {} as Product
+    const product = await ProductModel.findOne({
+      where: { id },
+    });
+
+    return new Product({
+      id: new Id(product.id),
+      name: product.name,
+      description: product.description,
+      salesPrice: product.salesPrice,
+    });
   }
 }
 
