@@ -12,7 +12,7 @@ class DatabaseConnection {
       logging: false,
       sync: { force: true },
     });
-    DatabaseConnection.sequelize.addModels([TransactionModel])
+    DatabaseConnection.sequelize.addModels([TransactionModel]);
   }
 
   static getConnectionInstance() {

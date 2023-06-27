@@ -41,6 +41,6 @@ TransactionModel.init({
   sequelize: DatabaseConnection.getConnectionInstance(),
   tableName: 'transactions',
   timestamps: false,
-})
+});
 
 export { TransactionModel };
