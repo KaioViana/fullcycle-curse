@@ -23,7 +23,7 @@ class ProcessPaymentUseCase implements IUseCase {
       orderId: persistTransaction.orderId,
       amount: persistTransaction.amount,
       status: transaction.status,
-      createdAt: persistTransaction.createAt,
+      createdAt: persistTransaction.createdAt,
       updatedAt: persistTransaction.updatedAt,
     }
   }

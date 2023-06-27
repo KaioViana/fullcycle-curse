@@ -26,7 +26,7 @@ class AddProductUseCase implements IUseCase {
       description: product.description,
       purchasePrice: product.purchasePrice,
       stock: product.stock,
-      createdAt: product.createAt,
+      createdAt: product.createdAt,
       updatedAt: product.updatedAt
     }
   }

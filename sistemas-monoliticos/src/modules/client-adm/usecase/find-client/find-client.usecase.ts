@@ -1,6 +1,4 @@
-import { Id } from "../../../@shared/domain/value-object/id.value-object";
 import { IUseCase } from "../../../@shared/usecase/use-case.interface";
-import { ClientAdm } from "../../domain/client.entity";
 import { IClientGateway } from "../../gateway/client.gateway";
 import { FindClientInputDto, FindClientOutputDto } from "./find-client.usecase.dto";
 
@@ -20,7 +18,7 @@ class FindClientUseCase implements IUseCase {
       name: client.name,
       email: client.email,
       address: client.address,
-      createdAt: client.createAt,
+      createdAt: client.createdAt,
       updatedAt: client.updatedAt,
     }
   }

@@ -23,7 +23,7 @@ class AddClientUseCase implements IUseCase {
       name: client.name,
       email: client.email,
       address: client.address,
-      createdAt: client.createAt,
+      createdAt: client.createdAt,
       updatedAt: client.updatedAt,
     }
   }
