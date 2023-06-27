@@ -8,7 +8,7 @@ class DatabaseConnection {
   constructor() {
     DatabaseConnection.sequelize = new Sequelize({
       dialect: 'sqlite',
-      storage: ':memory',
+      storage: ':memory_store',
       logging: false,
       sync: { force: true },
     });
