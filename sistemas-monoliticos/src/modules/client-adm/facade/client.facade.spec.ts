@@ -8,7 +8,7 @@ describe('client facade test', () => {
   let databaseInstance: Sequelize;
 
   beforeEach(async () => {
-    databaseInstance = DatabaseConnection.getConnectionInstance();
+    databaseInstance = DatabaseConnection.getConnectionInstance(':memory_client');
     databaseInstance.addModels([ClientModel]);
     ClientModel.initModel(databaseInstance);
     await databaseInstance.sync();

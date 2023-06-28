@@ -5,7 +5,7 @@ import { ProductRepository } from "./product.repository";
 import { DatabaseConnection } from "../../../__tests__/database.connection";
 
 describe("ProductRepository test", () => {
-  const databaseInstance = DatabaseConnection.getConnectionInstance();
+  const databaseInstance = DatabaseConnection.getConnectionInstance(':memory_product');
   beforeAll(async () => {
     databaseInstance.addModels([ProductModel]);
     ProductModel.initModel(databaseInstance);

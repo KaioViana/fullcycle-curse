@@ -9,7 +9,7 @@ describe('Payment repository test', () => {
   let databaseInstance: Sequelize;
 
   beforeEach(async () => {
-    databaseInstance = DatabaseConnection.getConnectionInstance();
+    databaseInstance = DatabaseConnection.getConnectionInstance(':memory_payments');
     databaseInstance.addModels([TransactionModel]);
     TransactionModel.initModel(databaseInstance);
     await databaseInstance.sync();

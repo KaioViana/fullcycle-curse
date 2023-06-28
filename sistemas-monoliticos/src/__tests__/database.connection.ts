@@ -4,17 +4,17 @@ class DatabaseConnection {
   private static instance: DatabaseConnection = null;
   private static sequelize: Sequelize;
 
-  private constructor() {
+  private constructor(storage: string) {
     DatabaseConnection.sequelize = new Sequelize({
+      storage,
       dialect: 'sqlite',
-      storage: ':memory_db',
       logging: false,
     });
   }
 
-  static getConnectionInstance() {
+  static getConnectionInstance(storage: string) {
     if (!DatabaseConnection.instance) {
-      DatabaseConnection.instance = new DatabaseConnection();
+      DatabaseConnection.instance = new DatabaseConnection(storage);
     }
     return DatabaseConnection.sequelize;
   }

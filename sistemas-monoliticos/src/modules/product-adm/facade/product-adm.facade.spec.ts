@@ -8,7 +8,7 @@ describe("ProductAdmFacade test", () => {
   let databaseInstance: Sequelize;
 
   beforeEach(async () => {
-    databaseInstance = DatabaseConnection.getConnectionInstance();
+    databaseInstance = DatabaseConnection.getConnectionInstance(':memory_product');
     databaseInstance.addModels([ProductModel]);
     ProductModel.initModel(databaseInstance);
     await databaseInstance.sync();

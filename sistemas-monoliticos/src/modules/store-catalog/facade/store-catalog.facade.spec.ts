@@ -8,7 +8,7 @@ describe('Store catalod facade test', () => {
   let databaseInstance: Sequelize;
 
   beforeEach(async () => {
-    databaseInstance = DatabaseConnection.getConnectionInstance();
+    databaseInstance = DatabaseConnection.getConnectionInstance(':memory_catalog');
     databaseInstance.addModels([ProductModel]);
     ProductModel.initModel(databaseInstance);
     await databaseInstance.sync();
