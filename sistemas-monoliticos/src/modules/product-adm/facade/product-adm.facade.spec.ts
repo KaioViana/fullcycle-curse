@@ -1,14 +1,22 @@
 import { ProductModel } from "../infra/product.model";
-import { DatabaseConnection } from "../infra/database.connection";
+import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ProductAdmFacadeFactory } from "../factory/facade.factory";
+import { Sequelize } from "sequelize-typescript";
 
 describe("ProductAdmFacade test", () => {
-  beforeAll(async () => {
-    await DatabaseConnection.sync();
+  let databaseInstance: Sequelize;
+
+  beforeEach(async () => {
+    databaseInstance = DatabaseConnection.getConnectionInstance();
+    databaseInstance.addModels([ProductModel]);
+    ProductModel.initModel(databaseInstance);
+    await databaseInstance.sync();
   });
 
-  afterAll(async () => await DatabaseConnection.closeConnection());
+  afterEach(async () => {
+    await DatabaseConnection.closeConnection();
+  });
 
   it("should create a product", async () => {
     const productIdMock = new Id();

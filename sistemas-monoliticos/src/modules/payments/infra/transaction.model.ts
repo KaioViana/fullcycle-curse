@@ -1,6 +1,5 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import { Model, Table } from 'sequelize-typescript';
-import { DatabaseConnection } from "./database.connection";
 
 @Table
 class TransactionModel extends Model {
@@ -10,37 +9,41 @@ class TransactionModel extends Model {
   declare status: string;
   declare createdAt: Date;
   declare updatedAt: Date;
+
+  static initModel(instance: Sequelize) {
+
+    TransactionModel.init({
+      id: {
+        type: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      orderId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      amount: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+    }, {
+      sequelize: instance,
+      tableName: 'transactions',
+      timestamps: false,
+    });
+  }
 }
 
-TransactionModel.init({
-  id: {
-    type: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
-  orderId: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  amount: {
-    type: DataTypes.NUMBER,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-}, {
-  sequelize: DatabaseConnection.getConnectionInstance(),
-  tableName: 'transactions',
-  timestamps: false,
-});
 
 export { TransactionModel };

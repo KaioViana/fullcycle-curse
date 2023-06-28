@@ -4,4 +4,5 @@ module.exports = {
   },
   clearMocks: true,
   coverageProvider: "v8",
+  modulePathIgnorePatterns: ["__tests__"]
 };

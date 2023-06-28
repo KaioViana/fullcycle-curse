@@ -1,13 +1,25 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { FacadeFactory } from "../factory/facade.factory";
+import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { ClientModel } from "../infra/client.model";
-import { DatabaseConnection } from "../infra/database.connection"
+import { Sequelize } from "sequelize-typescript";
 
 describe('client facade test', () => {
-  beforeAll(async () => DatabaseConnection.sync());
-  afterAll(async () => DatabaseConnection.closeConnection());
+  let databaseInstance: Sequelize;
+
+  beforeEach(async () => {
+    databaseInstance = DatabaseConnection.getConnectionInstance();
+    databaseInstance.addModels([ClientModel]);
+    ClientModel.initModel(databaseInstance);
+    await databaseInstance.sync();
+  });
+
+  afterEach(async () => {
+    await DatabaseConnection.closeConnection();
+  });
 
   it('should add client', async () => {
+
     const facade = FacadeFactory.create();
     const input = {
       name: 'client 1',

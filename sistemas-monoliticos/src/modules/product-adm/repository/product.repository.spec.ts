@@ -2,16 +2,19 @@ import { ProductModel } from "../infra/product.model";
 import { Product } from "../domain/product.entity";
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ProductRepository } from "./product.repository";
-import { DatabaseConnection } from "../infra/database.connection";
+import { DatabaseConnection } from "../../../__tests__/database.connection";
 
 describe("ProductRepository test", () => {
+  const databaseInstance = DatabaseConnection.getConnectionInstance();
   beforeAll(async () => {
-    await DatabaseConnection.sync();
+    databaseInstance.addModels([ProductModel]);
+    ProductModel.initModel(databaseInstance);
+    await databaseInstance.sync();
   });
 
   afterAll(async () => {
     await DatabaseConnection.closeConnection();
-  });
+  })
 
   it("should create a product", async () => {
     const productIdMock = new Id();

@@ -1,12 +1,23 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ClientAdm } from "../domain/client.entity";
 import { ClientModel } from "../infra/client.model";
-import { DatabaseConnection } from "../infra/database.connection";
+import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { ClientRepository } from "./client.repository";
+import { Sequelize } from "sequelize-typescript";
 
 describe('Client repository test', () => {
-  beforeAll(async () => DatabaseConnection.sync());
-  afterAll(async () => DatabaseConnection.closeConnection());
+  let databaseInstance: Sequelize;
+
+  beforeEach(async () => {
+    databaseInstance = DatabaseConnection.getConnectionInstance();
+    databaseInstance.addModels([ClientModel]);
+    ClientModel.initModel(databaseInstance);
+    await databaseInstance.sync();
+  });
+
+  afterEach(async () => {
+    await DatabaseConnection.closeConnection();
+  });
 
   it('Add client', async () => {
     const repository = new ClientRepository();
@@ -27,7 +38,6 @@ describe('Client repository test', () => {
 
     expect(client).toBeDefined();
     expect(client.id).toEqual(mockClientId.id);
-
   });
 
   it('find a client', async () => {

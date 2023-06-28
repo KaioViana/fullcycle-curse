@@ -1,6 +1,5 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import { Model, Table } from "sequelize-typescript";
-import { DatabaseConnection } from "./database.connection";
 
 @Table
 class ProductModel extends Model {
@@ -11,41 +10,44 @@ class ProductModel extends Model {
   declare stock: number;
   declare createdAt: Date;
   declare updatedAt: Date;
+
+  static initModel(instance: Sequelize) {
+    ProductModel.init({
+      id: {
+        type: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      purchasePrice: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+      },
+      stock: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+    }, {
+      sequelize: instance,
+      tableName: 'products',
+      timestamps: false,
+    })
+  }
 }
 
-ProductModel.init({
-  id: {
-    type: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  purchasePrice: {
-    type: DataTypes.NUMBER,
-    allowNull: false,
-  },
-  stock: {
-    type: DataTypes.NUMBER,
-    allowNull: false,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-}, {
-  sequelize: DatabaseConnection.getConnectionInstance(),
-  tableName: 'products',
-  timestamps: false,
-})
 
 export { ProductModel }
