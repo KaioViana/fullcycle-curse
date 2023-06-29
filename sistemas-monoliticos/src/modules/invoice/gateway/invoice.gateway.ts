@@ -1,0 +1,8 @@
+import { InvoiceEntity } from "../domain/invoice.entity";
+
+interface IInvoiceGateway {
+  find(id: string): Promise<InvoiceEntity>;
+  generate(): Promise<InvoiceEntity>;
+}
+
+export { IInvoiceGateway };

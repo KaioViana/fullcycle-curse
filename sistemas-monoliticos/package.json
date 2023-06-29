@@ -5,11 +5,12 @@
   "license": "MIT",
   "scripts": {
     "start": "tsx ",
-    "test": "npm run tsc -- --noEmit && npm run test:client_adm && npm run test:product_adm && npm run test:payments && npm run test:store_catalog",
+    "test": "npm run tsc -- --noEmit && npm run test:client_adm && npm run test:product_adm && npm run test:payments && npm run test:store_catalog && npm run test:invoice",
     "test:client_adm": "jest client-adm",
     "test:product_adm": "jest product-adm",
     "test:payments": "jest payments",
     "test:store_catalog": "jest store-catalog",
+    "test:invoice": "jest invoice",
     "tsc": "tsc"
   },
   "devDependencies": {

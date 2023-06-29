@@ -6,6 +6,8 @@ type ProductProps = {
   id?: Id;
   name: string;
   price: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 class ProductEntity extends BaseEntity implements AggregateRoot {
