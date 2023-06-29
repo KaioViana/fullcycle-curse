@@ -19,7 +19,7 @@ class InvoiceEntity extends BaseEntity implements AggregateRoot {
   private _document: string;
   private _address: Address;
   private _items: ProductEntity[];
-  private _total: number;
+  private _total = 0;
 
   constructor(props: InvoiceProps) {
     super(props.id);

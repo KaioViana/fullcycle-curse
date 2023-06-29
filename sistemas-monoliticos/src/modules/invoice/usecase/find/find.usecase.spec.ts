@@ -63,7 +63,7 @@ describe('Find usecase unit test', () => {
         name: item.name,
         price: item.price,
       })),
-      total: mockInvoice.total,
+      total: 200,
       createdAt: mockInvoice.createdAt,
     });
   });
