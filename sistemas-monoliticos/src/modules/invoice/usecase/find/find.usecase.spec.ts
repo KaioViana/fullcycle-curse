@@ -67,4 +67,4 @@ describe('Find usecase unit test', () => {
       createdAt: mockInvoice.createdAt,
     });
   });
-})
+});
