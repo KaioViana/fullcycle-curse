@@ -27,10 +27,8 @@ describe('Payment repository test', () => {
       amount: 100,
       orderId: '1',
     });
-    TransactionModel.findAll();
 
     transaction.approve();
-
 
     const result = await repository.save(transaction);
 
