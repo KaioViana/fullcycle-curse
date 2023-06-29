@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { TransactionModel } from "../infra/transaction.model";
-import { PaymentFacade } from "./payment.facade";
 import { FacadeFactory } from "../factory/facade.factory";
 
 describe('Payment facade test', () => {
