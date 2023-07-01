@@ -1,4 +1,3 @@
-import { Id } from "../../../@shared/domain/value-object/id.value-object";
 import { GenerateUseCase } from "./generate.usecase";
 
 const MockRepository = () => {
@@ -10,7 +9,6 @@ const MockRepository = () => {
 
 describe('Generate usecase unit test', () => {
   it('should generate a invoice', async () => {
-    const mockInvoiceId = new Id();
     const repository = MockRepository();
     const usecase = new GenerateUseCase(repository);
     const input = {
