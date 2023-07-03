@@ -5,7 +5,7 @@ class DatabaseConnection {
   private static instance: DatabaseConnection = null;
   private static sequelize: Sequelize;
 
-  constructor() {
+  private constructor() {
     DatabaseConnection.sequelize = new Sequelize({
       dialect: 'sqlite',
       storage: ':memory_client',
