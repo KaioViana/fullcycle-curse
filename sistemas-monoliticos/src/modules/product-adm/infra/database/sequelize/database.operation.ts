@@ -1,9 +1,9 @@
 import { Id } from "../../../../@shared/domain/value-object/id.value-object";
-import { IDatabase } from "../../../../@shared/infra/database/database.interface";
 import { Product } from "../../../domain/product.entity";
+import { IDatabaseOperation } from "./database.operation.interface";
 import { ProductModel } from "./product.model";
 
-class DatabaseOperation implements IDatabase<Product> {
+class DatabaseOperation implements IDatabaseOperation<Product> {
   async create(input: Product): Promise<void> {
     await ProductModel.create({
       id: input.id.id,

@@ -1,9 +1,9 @@
 import { Id } from "../../../../@shared/domain/value-object/id.value-object";
-import { IDatabase } from "../../../../@shared/infra/database/database.interface";
 import { ClientAdm } from "../../../domain/client.entity";
 import { ClientModel } from './client.model';
+import { IDatabaseOperation } from "./database.operation.interface";
 
-class DatabaseOperation implements IDatabase<ClientAdm> {
+class DatabaseOperation implements IDatabaseOperation<ClientAdm> {
   async create(input: ClientAdm): Promise<void> {
     await ClientModel.create({
       id: input.id.id,

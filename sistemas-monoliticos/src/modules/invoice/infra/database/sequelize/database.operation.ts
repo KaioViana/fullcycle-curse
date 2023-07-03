@@ -1,12 +1,12 @@
 import { Address } from "../../../../@shared/domain/value-object/address.value-object";
 import { Id } from "../../../../@shared/domain/value-object/id.value-object";
-import { IDatabase } from "../../../../@shared/infra/database/database.interface";
 import { InvoiceEntity } from "../../../domain/invoice.entity";
 import { ProductEntity } from "../../../domain/product.entity";
+import { IDatabaseOperation } from "./database.operation.interface";
 import { InvoiceModel } from "./invoice.model";
 import { ProductModel } from "./product.model";
 
-class DatabaseOperation implements IDatabase<InvoiceEntity> {
+class DatabaseOperation implements IDatabaseOperation<InvoiceEntity> {
   async create(input: InvoiceEntity): Promise<void> {
     await InvoiceModel.create({
       id: input.id.id,

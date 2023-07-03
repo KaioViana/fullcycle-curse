@@ -1,8 +1,8 @@
-import { IDatabase } from "../../../../@shared/infra/database/database.interface";
 import { Transaction } from "../../../domain/transaction";
+import { IDatabaseOperation } from "./database.operation.interface";
 import { TransactionModel } from "./transaction.model";
 
-class DatabaseOperation implements IDatabase<Transaction> {
+class DatabaseOperation implements IDatabaseOperation<Transaction> {
   async create(input: Transaction): Promise<void> {
     await TransactionModel.create({
       id: input.id.id,
@@ -12,10 +12,6 @@ class DatabaseOperation implements IDatabase<Transaction> {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-  }
-
-  async findById(id: string): Promise<Transaction | null> {
-    return null;
   }
 }
 

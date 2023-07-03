@@ -1,10 +1,10 @@
-import { IDatabase } from "../../@shared/infra/database/database.interface";
 import { Product } from "../domain/product.entity";
 import { IProductGateway } from "../gateway/product.gateway";
+import { IDatabaseOperation } from "../infra/database/sequelize/database.operation.interface";
 
 class ProductRepository implements IProductGateway {
   constructor(
-    private readonly databaseOperation: IDatabase<Product>
+    private readonly databaseOperation: IDatabaseOperation<Product>
   ) { }
   async add(product: Product): Promise<void> {
     await this.databaseOperation.create(product);

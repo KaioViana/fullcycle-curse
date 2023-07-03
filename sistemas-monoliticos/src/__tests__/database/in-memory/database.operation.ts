@@ -1,6 +1,6 @@
 import { IDatabase } from "../../../modules/@shared/infra/database/database.interface";
 
-class DatabaseOperation<T> implements IDatabase<T> {
+class DatabaseOperation<T> implements IDatabase {
   static inMemoryData: any[] = [];
 
   async create(input: T): Promise<void> {
@@ -13,6 +13,10 @@ class DatabaseOperation<T> implements IDatabase<T> {
     if (data) return data;
 
     return null;
+  }
+
+  async findAll(): Promise<T[]> {
+    return DatabaseOperation.inMemoryData;
   }
 }
 

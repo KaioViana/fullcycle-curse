@@ -1,10 +1,10 @@
-import { IDatabase } from "../../@shared/infra/database/database.interface";
 import { ClientAdm } from "../domain/client.entity";
 import { IClientGateway } from "../gateway/client.gateway";
+import { IDatabaseOperation } from "../infra/database/sequelize/database.operation.interface";
 
 class ClientRepository implements IClientGateway {
   constructor(
-    private readonly databaseOperation: IDatabase<ClientAdm>
+    private readonly databaseOperation: IDatabaseOperation<ClientAdm>
   ) { }
   async add(client: ClientAdm): Promise<void> {
     await this.databaseOperation.create(client);
