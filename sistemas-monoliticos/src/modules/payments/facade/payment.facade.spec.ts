@@ -1,24 +1,8 @@
-import { Sequelize } from "sequelize-typescript";
-import { DatabaseConnection } from "../../../__tests__/database.connection";
-import { TransactionModel } from "../infra/transaction.model";
 import { FacadeFactory } from "../factory/facade.factory";
 
 describe('Payment facade test', () => {
-  let databaseInstance: Sequelize;
-
-  beforeEach(async () => {
-    databaseInstance = DatabaseConnection.getConnectionInstance(':memory_payments');
-    databaseInstance.addModels([TransactionModel]);
-    TransactionModel.initModel(databaseInstance);
-    await databaseInstance.sync();
-  });
-
-  afterEach(async () => {
-    await DatabaseConnection.closeConnection();
-  });
-
   it('should save a transaction', async () => {
-    const facade = FacadeFactory.create();
+    const facade = FacadeFactory.createMock();
     const input = {
       orderId: '1',
       amount: 100,

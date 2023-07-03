@@ -1,26 +1,14 @@
+import { IDatabase } from "../../@shared/infra/database/database.interface";
 import { Transaction } from "../domain/transaction";
 import { IPaymentGateway } from "../gateway/payment.gateway";
-import { TransactionModel } from "../infra/transaction.model";
 
 class TransactionRepository implements IPaymentGateway {
+  constructor(
+    private readonly databaseOperation: IDatabase<Transaction>
+  ) { }
   async save(input: Transaction): Promise<Transaction> {
-    await TransactionModel.create({
-      id: input.id.id,
-      orderId: input.orderId,
-      amount: input.amount,
-      status: input.status,
-      createdAt: input.createdAt,
-      updatedAt: input.updatedAt,
-    });
-
-    return new Transaction({
-      id: input.id,
-      orderId: input.orderId,
-      amount: input.amount,
-      status: input.status,
-      createdAt: input.createdAt,
-      updatedAt: input.updatedAt,
-    });
+    await this.databaseOperation.create(input);
+    return input;
   }
 }
 

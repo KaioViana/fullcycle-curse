@@ -1,26 +1,12 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { Transaction } from "../domain/transaction";
-import { TransactionModel } from "../infra/transaction.model";
-import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { TransactionRepository } from "./transaction.repository";
-import { Sequelize } from "sequelize-typescript";
+import { DatabaseOperation } from '../../../__tests__/database/in-memory/database.operation';
 
 describe('Payment repository test', () => {
-  let databaseInstance: Sequelize;
-
-  beforeEach(async () => {
-    databaseInstance = DatabaseConnection.getConnectionInstance(':memory_payments');
-    databaseInstance.addModels([TransactionModel]);
-    TransactionModel.initModel(databaseInstance);
-    await databaseInstance.sync();
-  });
-
-  afterEach(async () => {
-    await DatabaseConnection.closeConnection();
-  });
-
   it('should save a transaction', async () => {
-    const repository = new TransactionRepository();
+    const inMemory = new DatabaseOperation<Transaction>();
+    const repository = new TransactionRepository(inMemory);
     const mockTransactionId = new Id();
     const transaction = new Transaction({
       id: mockTransactionId,
