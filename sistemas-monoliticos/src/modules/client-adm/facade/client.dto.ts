@@ -4,6 +4,13 @@ interface AddClientFacadeInputDto {
   address: string;
 }
 
+interface AddClientFacadeOutputDto {
+  id: string;
+  name: string;
+  email: string;
+  address: string;
+}
+
 interface FindClientFacadeOutputDto {
   id: string;
   name: string;
@@ -11,4 +18,8 @@ interface FindClientFacadeOutputDto {
   address: string;
 }
 
-export { AddClientFacadeInputDto, FindClientFacadeOutputDto }
+export {
+  AddClientFacadeInputDto,
+  FindClientFacadeOutputDto,
+  AddClientFacadeOutputDto,
+}

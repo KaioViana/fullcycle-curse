@@ -1,37 +1,23 @@
-import { Id } from "../../@shared/domain/value-object/id.value-object";
+import { IDatabase } from "../../@shared/infra/database/database.interface";
 import { ClientAdm } from "../domain/client.entity";
 import { IClientGateway } from "../gateway/client.gateway";
-import { ClientModel } from "../infra/client.model";
 
 class ClientRepository implements IClientGateway {
+  constructor(
+    private readonly databaseOperation: IDatabase<ClientAdm>
+  ) { }
   async add(client: ClientAdm): Promise<void> {
-    await ClientModel.create({
-      id: client.id.id,
-      name: client.name,
-      email: client.email,
-      address: client.address,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    await this.databaseOperation.create(client);
   }
 
   async find(id: string): Promise<ClientAdm> {
-    const client = await ClientModel.findOne({
-      where: {
-        id
-      }
-    });
+    const client = await this.databaseOperation.findById(id);
 
     if (!client) {
       throw new Error('Client not found')
     }
 
-    return new ClientAdm({
-      id: new Id(client.id),
-      name: client.name,
-      email: client.email,
-      address: client.address
-    });
+    return client;
   }
 }
 

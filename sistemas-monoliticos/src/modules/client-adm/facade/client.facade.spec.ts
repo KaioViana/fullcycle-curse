@@ -1,53 +1,35 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { FacadeFactory } from "../factory/facade.factory";
-import { DatabaseConnection } from "../../../__tests__/database.connection";
-import { ClientModel } from "../infra/client.model";
-import { Sequelize } from "sequelize-typescript";
+import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation";
+import { ClientAdm } from "../domain/client.entity";
 
 describe('client facade test', () => {
-  let databaseInstance: Sequelize;
-
-  beforeEach(async () => {
-    databaseInstance = DatabaseConnection.getConnectionInstance(':memory_client');
-    databaseInstance.addModels([ClientModel]);
-    ClientModel.initModel(databaseInstance);
-    await databaseInstance.sync();
-  });
-
-  afterEach(async () => {
-    await DatabaseConnection.closeConnection();
-  });
-
   it('should add client', async () => {
-
-    const facade = FacadeFactory.create();
+    const facade = FacadeFactory.createMock();
     const input = {
       name: 'client 1',
       email: 'email@example.com',
       address: 'address 1'
     }
 
-    await facade.add(input);
+    const result = await facade.add(input);
 
-    const client = await ClientModel.findOne({
-      where: {
-        name: 'client 1'
-      }
-    });
-    expect(client).toBeDefined();
+    expect(result.name).toBe(input.name);
+    expect(result.email).toBe(input.email);
+    expect(result.address).toBe(input.address);
   });
 
   it('should find a client', async () => {
-    const facade = FacadeFactory.create();
+    const facade = FacadeFactory.createMock();
     const mockClientId = new Id();
-    await ClientModel.create({
-      id: mockClientId.id,
+    const mockClient = new ClientAdm({
+      id: mockClientId,
       name: 'name 1',
       email: 'email@example.com',
       address: 'address 1',
-      createdAt: new Date(),
-      updatedAt: new Date(),
     });
+
+    DatabaseOperation.inMemoryData.push(mockClient);
 
     const client = await facade.find(mockClientId.id);
 

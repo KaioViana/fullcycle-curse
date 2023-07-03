@@ -1,26 +1,18 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ClientAdm } from "../domain/client.entity";
-import { ClientModel } from "../infra/client.model";
 import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { ClientRepository } from "./client.repository";
-import { Sequelize } from "sequelize-typescript";
+import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation";
 
 describe('Client repository test', () => {
-  let databaseInstance: Sequelize;
-
-  beforeEach(async () => {
-    databaseInstance = DatabaseConnection.getConnectionInstance(':memory_client');
-    databaseInstance.addModels([ClientModel]);
-    ClientModel.initModel(databaseInstance);
-    await databaseInstance.sync();
-  });
 
   afterEach(async () => {
     await DatabaseConnection.closeConnection();
   });
 
   it('Add client', async () => {
-    const repository = new ClientRepository();
+    const inMemory = new DatabaseOperation<ClientAdm>();
+    const repository = new ClientRepository(inMemory);
     const mockClientId = new Id();
     const mockClient = new ClientAdm({
       id: mockClientId,
@@ -30,18 +22,15 @@ describe('Client repository test', () => {
     });
     await repository.add(mockClient);
 
-    const client = await ClientModel.findOne({
-      where: {
-        id: mockClientId.id
-      }
-    });
+    const client = await inMemory.findById(mockClientId.id);
 
     expect(client).toBeDefined();
-    expect(client.id).toEqual(mockClientId.id);
+    expect(client.id.id).toEqual(mockClientId.id);
   });
 
   it('find a client', async () => {
-    const repository = new ClientRepository();
+    const inMemory = new DatabaseOperation<ClientAdm>();
+    const repository = new ClientRepository(inMemory);
     const mockClientId = new Id();
     const mockClient = new ClientAdm({
       id: mockClientId,
@@ -50,14 +39,7 @@ describe('Client repository test', () => {
       address: 'address 1',
     });
 
-    await ClientModel.create({
-      id: mockClient.id.id,
-      name: mockClient.name,
-      email: mockClient.email,
-      address: mockClient.address,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    await inMemory.create(mockClient);
 
     const client = await repository.find(mockClientId.id);
     expect(client).toBeDefined()

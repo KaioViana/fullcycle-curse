@@ -1,7 +1,7 @@
-import { AddClientFacadeInputDto, FindClientFacadeOutputDto } from "./client.dto";
+import { AddClientFacadeInputDto, AddClientFacadeOutputDto, FindClientFacadeOutputDto } from "./client.dto";
 
 interface IClientFacade {
-  add(input: AddClientFacadeInputDto): Promise<void>;
+  add(input: AddClientFacadeInputDto): Promise<AddClientFacadeOutputDto>;
   find(id: string): Promise<FindClientFacadeOutputDto>;
 }
 

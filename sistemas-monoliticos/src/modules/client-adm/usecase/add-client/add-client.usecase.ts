@@ -11,7 +11,7 @@ class AddClientUseCase implements IUseCase {
   async execute(input: AddClientInputDto): Promise<AddClientOutputDto> {
     const props = {
       name: input.name,
-      email: input.name,
+      email: input.email,
       address: input.address,
     }
 
