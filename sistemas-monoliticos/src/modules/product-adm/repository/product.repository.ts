@@ -1,39 +1,23 @@
-import { Id } from "../../@shared/domain/value-object/id.value-object";
+import { IDatabase } from "../../@shared/infra/database/database.interface";
 import { Product } from "../domain/product.entity";
 import { IProductGateway } from "../gateway/product.gateway";
-import { ProductModel } from "../infra/product.model";
 
 class ProductRepository implements IProductGateway {
+  constructor(
+    private readonly databaseOperation: IDatabase<Product>
+  ) { }
   async add(product: Product): Promise<void> {
-    await ProductModel.create({
-      id: product.id.id,
-      name: product.name,
-      description: product.description,
-      purchasePrice: product.purchasePrice,
-      stock: product.stock,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    await this.databaseOperation.create(product);
   }
 
   async find(id: string): Promise<Product> {
-    const product = await ProductModel.findOne({
-      where: { id }
-    });
+    const product = await this.databaseOperation.findById(id);
 
     if (!product) {
       throw new Error("Product not found");
     }
 
-    return new Product({
-      id: new Id(product.id),
-      name: product.name,
-      description: product.description,
-      purchasePrice: product.purchasePrice,
-      stock: product.stock,
-      createdAt: product.createdAt,
-      updatedAt: product.updatedAt,
-    });
+    return product;
   }
 }
 
