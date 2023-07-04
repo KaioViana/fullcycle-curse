@@ -1,3 +1,4 @@
+import { Address } from "../../../@shared/domain/value-object/address.value-object";
 import { IUseCase } from "../../../@shared/usecase/use-case.interface";
 import { ClientAdm } from "../../domain/client.entity";
 import { IClientGateway } from "../../gateway/client.gateway";
@@ -12,7 +13,8 @@ class AddClientUseCase implements IUseCase {
     const props = {
       name: input.name,
       email: input.email,
-      address: input.address,
+      document: input.document,
+      address: new Address(input.address),
     }
 
     const client = new ClientAdm(props);
@@ -22,7 +24,15 @@ class AddClientUseCase implements IUseCase {
       id: client.id.id,
       name: client.name,
       email: client.email,
-      address: client.address,
+      document: client.document,
+      address: {
+        street: client.address.street,
+        number: client.address.number,
+        complement: client.address.complement,
+        city: client.address.city,
+        state: client.address.state,
+        zipCode: client.address.zipCode,
+      },
       createdAt: client.createdAt,
       updatedAt: client.updatedAt,
     }

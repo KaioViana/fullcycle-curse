@@ -18,7 +18,15 @@ describe('Add client usecase unit test', () => {
       id: mockClientId.id,
       name: 'Cliente 1',
       email: 'client@test.com',
-      address: 'Address 1'
+      document: 'document',
+      address: {
+        street: 'street',
+        number: 'number',
+        complement: 'complement',
+        city: 'city',
+        state: 'state',
+        zipCode: 'zipCode',
+      }
     };
 
     await usecase.execute(input);

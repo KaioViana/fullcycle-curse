@@ -6,7 +6,13 @@ class ClientModel extends Model {
   declare id: string;
   declare name: string;
   declare email: string;
-  declare address: string;
+  declare document: string;
+  declare street: string;
+  declare number: string;
+  declare complement: string;
+  declare city: string;
+  declare state: string;
+  declare zipCode: string;
   declare createdAt: Date;
   declare updatedAt: Date;
 
@@ -24,9 +30,33 @@ class ClientModel extends Model {
         type: DataTypes.STRING,
         allowNull: false
       },
-      address: {
+      document: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+      },
+      street: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      number: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      complement: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      state: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      zipCode: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       createdAt: {
         type: DataTypes.DATE,

@@ -1,3 +1,4 @@
+import { Address } from "../../../@shared/domain/value-object/address.value-object";
 import { Id } from "../../../@shared/domain/value-object/id.value-object";
 import { ClientAdm } from "../../domain/client.entity";
 import { FindClientUseCase } from "./find-client.usecase";
@@ -18,7 +19,15 @@ describe('Find cliente usecase unit test', () => {
       id: mockClientId,
       name: 'Cliente 1',
       email: 'client@test.com',
-      address: 'address 1',
+      document: 'document',
+      address: new Address({
+        street: 'street',
+        number: 'number',
+        complement: 'complement',
+        city: 'city',
+        state: 'state',
+        zipCode: 'zipCode',
+      }),
     });
 
     repository.find.mockResolvedValue(mockClient);

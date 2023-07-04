@@ -3,6 +3,7 @@ import { ClientAdm } from "../domain/client.entity";
 import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { ClientRepository } from "./client.repository";
 import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation";
+import { Address } from "../../@shared/domain/value-object/address.value-object";
 
 describe('Client repository test', () => {
 
@@ -18,7 +19,15 @@ describe('Client repository test', () => {
       id: mockClientId,
       name: 'Client 1',
       email: 'client@example.com',
-      address: 'address 1',
+      document: 'document',
+      address: new Address({
+        street: 'street',
+        number: 'number',
+        complement: 'complement',
+        city: 'city',
+        state: 'state',
+        zipCode: 'zipCode',
+      })
     });
     await repository.add(mockClient);
 
@@ -36,7 +45,15 @@ describe('Client repository test', () => {
       id: mockClientId,
       name: 'Client 1',
       email: 'client@example.com',
-      address: 'address 1',
+      document: 'document',
+      address: new Address({
+        street: 'street',
+        number: 'number',
+        complement: 'complement',
+        city: 'city',
+        state: 'state',
+        zipCode: 'zipCode',
+      })
     });
 
     await inMemory.create(mockClient);
