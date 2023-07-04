@@ -1,3 +1,6 @@
+import { Id } from "../../../@shared/domain/value-object/id.value-object";
+import { FindStoreCatalogFacadeOutputDto } from "../../../store-catalog/facade/store-catalog.facade.dto";
+import { ProductEntity } from "../../domain/product.entity";
 import { PlaceOrderInputDto } from "./place-order.dto";
 import { PlaceOrderUseCase } from "./place-order.usecase";
 
@@ -13,6 +16,12 @@ const MockProductFacade = () => {
     addproduct: jest.fn(),
   }
 }
+const MockCatalogFacade = () => {
+  return {
+    findAll: jest.fn(),
+    find: jest.fn(),
+  }
+};
 
 describe('Place order usecase unit test', () => {
   let placeOrderUsecase: PlaceOrderUseCase;
@@ -20,11 +29,13 @@ describe('Place order usecase unit test', () => {
 
   const mockClientFacade = MockClientFacade();
   const mockProductFacade = MockProductFacade();
+  const mockCatalogFacade = MockCatalogFacade();
 
   beforeAll(() => {
     placeOrderUsecase = new PlaceOrderUseCase(
       mockClientFacade,
       mockProductFacade,
+      mockCatalogFacade,
     );
     validateProductsStub = jest.spyOn(placeOrderUsecase as any, 'validateProducts');
   });
@@ -67,6 +78,46 @@ describe('Place order usecase unit test', () => {
         .toThrowError('Product 2 is not available in stock.');
       expect(mockProductFacade.checkStock).toHaveBeenCalledTimes(2);
 
+    });
+  });
+
+  describe('getProducts method', () => {
+    let mockDate: Date;
+
+    beforeAll(() => {
+      mockDate = new Date(2000, 1, 1);
+      jest.useFakeTimers();
+      jest.setSystemTime(mockDate);
+    });
+
+    afterAll(() => jest.useRealTimers());
+
+    it('should throw an error when product not found', async () => {
+      mockCatalogFacade.find.mockResolvedValue(null);
+
+      await expect(placeOrderUsecase['getProduct']('0'))
+        .rejects
+        .toThrowError('Product not found.');
+      expect(mockCatalogFacade.find).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return a product', async () => {
+      const mockProductId = new Id();
+      const mockProduct: FindStoreCatalogFacadeOutputDto = {
+        id: mockProductId.id,
+        name: 'product 1',
+        description: 'description',
+        salesPrice: 100,
+      };
+      mockCatalogFacade.find.mockResolvedValue(mockProduct);
+
+      const result = await placeOrderUsecase['getProduct'](mockProductId.id);
+
+      expect(result.id.id).toBe(mockProduct.id);
+      expect(result.name).toBe(mockProduct.name);
+      expect(result.description).toBe(mockProduct.description);
+      expect(result.salesPrice).toBe(mockProduct.salesPrice);
+      expect(mockCatalogFacade.find).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -1,12 +1,16 @@
+import { Id } from "../../../@shared/domain/value-object/id.value-object";
 import { IUseCase } from "../../../@shared/usecase/use-case.interface";
 import { IClientFacade } from "../../../client-adm/facade/client.facade.interface";
 import { IProductAdmFacade } from "../../../product-adm/facade/product-adm.facade.interface";
+import { IStoreCatalogFacade } from "../../../store-catalog/facade/store-catalog.facade.interface";
+import { ProductEntity } from "../../domain/product.entity";
 import { PlaceOrderInputDto, PlaceOrderOutputDto } from "./place-order.dto";
 
 class PlaceOrderUseCase implements IUseCase {
   constructor(
     private readonly clientFacade: IClientFacade,
-    private readonly productFacade: IProductAdmFacade
+    private readonly productFacade: IProductAdmFacade,
+    private readonly catalogFacade: IStoreCatalogFacade,
   ) {
 
   }
@@ -33,6 +37,20 @@ class PlaceOrderUseCase implements IUseCase {
         throw new Error(`Product ${product.productId} is not available in stock.`);
       }
     }
+  }
+
+  private async getProduct(productId: string): Promise<ProductEntity> {
+    const product = await this.catalogFacade.find({ id: productId });
+    if (!product) {
+      throw new Error('Product not found.');
+    }
+
+    return new ProductEntity({
+      id: new Id(product.id),
+      name: product.name,
+      description: product.description,
+      salesPrice: product.salesPrice,
+    });
   }
 }
 
