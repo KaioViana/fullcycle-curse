@@ -3,7 +3,7 @@ import { IDatabaseOperation } from "./database.operation.interface";
 import { OrderModel } from "./order.model";
 import { ProductModel } from "./product.model";
 
-class DataBaseOperation implements IDatabaseOperation<OrderEntity> {
+class DatabaseOperation implements IDatabaseOperation<OrderEntity> {
   async create(input: OrderEntity): Promise<void> {
     await OrderModel.create({
       id: input.id.id,
@@ -24,4 +24,4 @@ class DataBaseOperation implements IDatabaseOperation<OrderEntity> {
   }
 }
 
-export { DataBaseOperation }
+export { DatabaseOperation }
