@@ -4,7 +4,7 @@ import { OrderModel } from "./order.model";
 import { ProductModel } from "./product.model";
 
 class DataBaseOperation implements IDatabaseOperation<OrderEntity> {
-  async addOrder(input: OrderEntity): Promise<void> {
+  async create(input: OrderEntity): Promise<void> {
     await OrderModel.create({
       id: input.id.id,
       clientId: input.client.id.id,
