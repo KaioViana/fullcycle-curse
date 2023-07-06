@@ -1,10 +1,10 @@
 import { InvoiceEntity } from "../domain/invoice.entity";
 import { IInvoiceGateway } from "../gateway/invoice.gateway";
-import { IDatabaseOperation } from "../infra/database/sequelize/database.operation.interface";
+import { IDatabaseContext } from "../infra/database/database.context.interface";
 
 class InvoiceRepository implements IInvoiceGateway {
   constructor(
-    private readonly databaseOperation: IDatabaseOperation<InvoiceEntity>
+    private readonly databaseOperation: IDatabaseContext<InvoiceEntity>
   ) { }
   async generate(input: InvoiceEntity): Promise<void> {
     await this.databaseOperation.create(input);

@@ -1,7 +1,7 @@
 import { InvoiceFacade } from "../facade/invoice.facade";
 import { IInvoiceFacade } from "../facade/invoice.facade.interface";
-import { DatabaseOperation } from "../infra/database/sequelize/database.operation";
-import { DatabaseOperation as InMemoryDatabaseOperation } from '../../../__tests__/database/in-memory/database.operation';
+import { DatabaseContext } from "../infra/database/sequelize/database.context";
+import { InMemoryDatabaseContext } from '../../../__tests__/database/in-memory/database.context';
 import { InvoiceRepository } from "../repository/invoice.repository";
 import { FindUseCase } from "../usecase/find/find.usecase";
 import { GenerateUseCase } from "../usecase/generate/generate.usecase";
@@ -9,8 +9,8 @@ import { InvoiceEntity } from "../domain/invoice.entity";
 
 class FacadeFactory {
   static create(): IInvoiceFacade {
-    const sequelize = new DatabaseOperation()
-    const repository = new InvoiceRepository(sequelize);
+    const databaseContext = new DatabaseContext()
+    const repository = new InvoiceRepository(databaseContext);
     const generateUsecase = new GenerateUseCase(repository);
     const findUsecase = new FindUseCase(repository);
 
@@ -23,7 +23,7 @@ class FacadeFactory {
   }
 
   static createMock(): IInvoiceFacade {
-    const inMemory = new InMemoryDatabaseOperation<InvoiceEntity>();
+    const inMemory = new InMemoryDatabaseContext<InvoiceEntity>();
     const repository = new InvoiceRepository(inMemory);
     const generateUsecase = new GenerateUseCase(repository);
     const findUsecase = new FindUseCase(repository);

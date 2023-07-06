@@ -3,7 +3,7 @@ import { InvoiceEntity } from "../domain/invoice.entity";
 import { ProductEntity } from "../domain/product.entity";
 import { Address } from "../../@shared/domain/value-object/address.value-object";
 import { FacadeFactory } from "../factory/facade.factory";
-import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation";
+import { InMemoryDatabaseContext } from "../../../__tests__/database/in-memory/database.context";
 
 describe('Invoice facade test', () => {
   it('should generate a invoice', async () => {
@@ -66,7 +66,7 @@ describe('Invoice facade test', () => {
       items: mockItems,
     });
 
-    DatabaseOperation.inMemoryData.push(mockInvoice);
+    InMemoryDatabaseContext.inMemoryData.push(mockInvoice);
 
     const facade = FacadeFactory.createMock();
 

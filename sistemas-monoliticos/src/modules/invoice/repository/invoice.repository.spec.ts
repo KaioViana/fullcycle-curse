@@ -3,11 +3,11 @@ import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { InvoiceEntity } from "../domain/invoice.entity";
 import { ProductEntity } from "../domain/product.entity";
 import { Address } from "../../@shared/domain/value-object/address.value-object";
-import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation";
+import { InMemoryDatabaseContext } from "../../../__tests__/database/in-memory/database.context";
 
 describe('Invoice repository test', () => {
   it('should generate a invoice', async () => {
-    const inMemory = new DatabaseOperation<InvoiceEntity>()
+    const inMemory = new InMemoryDatabaseContext<InvoiceEntity>()
     const repository = new InvoiceRepository(inMemory);
     const mockInvoiceId = new Id();
     const mockItems = [
@@ -39,7 +39,7 @@ describe('Invoice repository test', () => {
 
     await repository.generate(mockInvoice);
 
-    const invoice = await DatabaseOperation.inMemoryData.find(x => x.id.id === mockInvoiceId.id);
+    const invoice = await InMemoryDatabaseContext.inMemoryData.find(x => x.id.id === mockInvoiceId.id);
 
     expect(invoice.id.id).toBe(mockInvoiceId.id);
     expect(invoice.name).toBe(mockInvoice.name);
@@ -53,7 +53,7 @@ describe('Invoice repository test', () => {
   });
 
   it('should find a invoice', async () => {
-    const inMemory = new DatabaseOperation<InvoiceEntity>();
+    const inMemory = new InMemoryDatabaseContext<InvoiceEntity>();
     const repository = new InvoiceRepository(inMemory);
 
     const mockInvoiceId = new Id();
@@ -85,7 +85,7 @@ describe('Invoice repository test', () => {
       items: mockItems,
     });
 
-    DatabaseOperation.inMemoryData.push(mockInvoice);
+    InMemoryDatabaseContext.inMemoryData.push(mockInvoice);
 
     const invoice = await repository.find(mockInvoice.id.id);
 
