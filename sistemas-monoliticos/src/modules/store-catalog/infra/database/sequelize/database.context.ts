@@ -1,9 +1,9 @@
 import { Id } from "../../../../@shared/domain/value-object/id.value-object";
-import { IDatabaseOperation } from "./database.operation.interface";
+import { IDatabaseContext } from "../database.context.interface";
 import { Product } from "../../../domain/product.entity";
 import { ProductModel } from "./product.model";
 
-class DatabaseOperation implements IDatabaseOperation<Product> {
+class DatabaseContext implements IDatabaseContext<Product> {
   async findAll(): Promise<Product[]> {
     const products = await ProductModel.findAll();
 
@@ -33,4 +33,4 @@ class DatabaseOperation implements IDatabaseOperation<Product> {
   }
 }
 
-export { DatabaseOperation };
+export { DatabaseContext };

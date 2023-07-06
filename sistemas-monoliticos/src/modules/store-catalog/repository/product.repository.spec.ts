@@ -1,7 +1,8 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ProductRepository } from "./product.repository";
-import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation";
+import { InMemoryDatabaseContext } from "../../../__tests__/database/in-memory/database.context";
 import { Product } from "../domain/product.entity";
+
 describe("ProductRepository test", () => {
   it('should find all products', async () => {
     const product1 = new Product({
@@ -16,11 +17,11 @@ describe("ProductRepository test", () => {
       description: 'Description',
       salesPrice: 100,
     });
-    const inMemory = new DatabaseOperation<Product>
+    const inMemory = new InMemoryDatabaseContext<Product>
     const productRepository = new ProductRepository(inMemory);
 
-    DatabaseOperation.inMemoryData.push(product1);
-    DatabaseOperation.inMemoryData.push(product2);
+    InMemoryDatabaseContext.inMemoryData.push(product1);
+    InMemoryDatabaseContext.inMemoryData.push(product2);
 
     const result = await productRepository.findAll();
 
@@ -35,10 +36,10 @@ describe("ProductRepository test", () => {
       description: 'Description',
       salesPrice: 100,
     });
-    const inMemory = new DatabaseOperation<Product>;
+    const inMemory = new InMemoryDatabaseContext<Product>;
     const productRepository = new ProductRepository(inMemory);
 
-    DatabaseOperation.inMemoryData.push(productMock);
+    InMemoryDatabaseContext.inMemoryData.push(productMock);
 
     const product = await productRepository.find(productIdMock.id);
 

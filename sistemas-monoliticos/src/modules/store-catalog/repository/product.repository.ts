@@ -1,10 +1,10 @@
 import { Product } from "../domain/product.entity";
 import { IProductGateway } from "../gateway/product.gateway";
-import { IDatabaseOperation } from "../infra/database/sequelize/database.operation.interface";
+import { IDatabaseContext } from "../infra/database/database.context.interface";
 
 class ProductRepository implements IProductGateway {
   constructor(
-    private readonly databaseOperation: IDatabaseOperation<Product>
+    private readonly databaseOperation: IDatabaseContext<Product>
   ) { }
 
   async findAll(): Promise<Product[]> {
