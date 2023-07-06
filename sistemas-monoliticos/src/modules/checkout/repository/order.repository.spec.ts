@@ -1,4 +1,4 @@
-import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation"
+import { InMemoryDatabaseContext } from "../../../__tests__/database/in-memory/database.context"
 import { Address } from "../../@shared/domain/value-object/address.value-object";
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ClientEntity } from "../domain/client.entity";
@@ -8,7 +8,7 @@ import { OrderRepository } from "./order.repository";
 
 describe('Order repository test', () => {
   it('shoud add a order', async () => {
-    const inMemory = new DatabaseOperation<OrderEntity>();
+    const inMemory = new InMemoryDatabaseContext<OrderEntity>();
     const repository = new OrderRepository(inMemory);
     const mockOrderId = new Id();
     const mockItems = [
@@ -47,7 +47,7 @@ describe('Order repository test', () => {
 
     repository.addOrder(mockOrder);
 
-    const order = await DatabaseOperation.inMemoryData.find(x => x.id.id === mockOrderId.id);
+    const order = await InMemoryDatabaseContext.inMemoryData.find(x => x.id.id === mockOrderId.id);
 
     expect(order.id.id).toBe(mockOrderId.id);
     expect(order.client.id.id).toBe(mockOrder.client.id.id);

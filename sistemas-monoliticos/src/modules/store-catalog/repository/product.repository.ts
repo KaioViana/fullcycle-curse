@@ -9,7 +9,6 @@ class ProductRepository implements IProductGateway {
 
   async findAll(): Promise<Product[]> {
     return this.databaseOperation.findAll();
-
   }
 
   async find(id: string): Promise<Product> {

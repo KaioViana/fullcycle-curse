@@ -1,9 +1,9 @@
 import { OrderEntity } from "../../../domain/order.entity";
-import { IDatabaseOperation } from "./database.operation.interface";
+import { IDatabaseContext } from "../database.context.interface";
 import { OrderModel } from "./order.model";
 import { ProductModel } from "./product.model";
 
-class DatabaseOperation implements IDatabaseOperation<OrderEntity> {
+class DatabaseContext implements IDatabaseContext<OrderEntity> {
   async create(input: OrderEntity): Promise<void> {
     await OrderModel.create({
       id: input.id.id,
@@ -24,4 +24,4 @@ class DatabaseOperation implements IDatabaseOperation<OrderEntity> {
   }
 }
 
-export { DatabaseOperation }
+export { DatabaseContext }

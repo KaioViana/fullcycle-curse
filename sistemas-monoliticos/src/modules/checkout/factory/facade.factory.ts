@@ -1,6 +1,6 @@
 import { ICheckoutFacade } from "../facade/checkout.facade.interface";
-import { DatabaseOperation } from '../infra/database/sequelize/database.operation';
-import { DatabaseOperation as InMemoryDatabaseOperation } from '../../../__tests__/database/in-memory/database.operation';
+import { DatabaseContext } from '../infra/database/sequelize/database.context';
+import { InMemoryDatabaseContext } from '../../../__tests__/database/in-memory/database.context';
 import { OrderRepository } from "../repository/order.repository";
 import { PlaceOrderUseCase } from "../usecase/place-order/place-order.usecase";
 import { FacadeFactory as ClientFacadeFactory } from '../../client-adm/factory/facade.factory';
@@ -13,8 +13,8 @@ import { OrderEntity } from "../domain/order.entity";
 
 class FacadeFactory {
   static create(): ICheckoutFacade {
-    const sequelize = new DatabaseOperation();
-    const repository = new OrderRepository(sequelize);
+    const databaseContext = new DatabaseContext();
+    const repository = new OrderRepository(databaseContext);
 
     const clientFacade = ClientFacadeFactory.create();
     const productFacade = ProductAdmFacadeFactory.create();
@@ -39,7 +39,7 @@ class FacadeFactory {
   }
 
   static createMock(): ICheckoutFacade {
-    const inMemory = new InMemoryDatabaseOperation<OrderEntity>();
+    const inMemory = new InMemoryDatabaseContext<OrderEntity>();
     const repository = new OrderRepository(inMemory);
 
     const clientFacade = ClientFacadeFactory.createMock();
