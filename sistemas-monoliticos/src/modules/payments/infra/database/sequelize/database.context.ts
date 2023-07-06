@@ -1,8 +1,8 @@
 import { Transaction } from "../../../domain/transaction";
-import { IDatabaseOperation } from "./database.operation.interface";
+import { IDatabaseContext } from "../database.context.interface";
 import { TransactionModel } from "./transaction.model";
 
-class DatabaseOperation implements IDatabaseOperation<Transaction> {
+class DatabaseContext implements IDatabaseContext<Transaction> {
   async create(input: Transaction): Promise<void> {
     await TransactionModel.create({
       id: input.id.id,
@@ -15,4 +15,4 @@ class DatabaseOperation implements IDatabaseOperation<Transaction> {
   }
 }
 
-export { DatabaseOperation };
+export { DatabaseContext };

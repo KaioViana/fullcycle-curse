@@ -1,10 +1,10 @@
 import { Transaction } from "../domain/transaction";
 import { IPaymentGateway } from "../gateway/payment.gateway";
-import { IDatabaseOperation } from "../infra/database/sequelize/database.operation.interface";
+import { IDatabaseContext } from "../infra/database/database.context.interface";
 
 class TransactionRepository implements IPaymentGateway {
   constructor(
-    private readonly databaseOperation: IDatabaseOperation<Transaction>
+    private readonly databaseOperation: IDatabaseContext<Transaction>
   ) { }
   async save(input: Transaction): Promise<Transaction> {
     await this.databaseOperation.create(input);

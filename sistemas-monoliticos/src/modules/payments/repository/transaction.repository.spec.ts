@@ -1,11 +1,11 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { Transaction } from "../domain/transaction";
 import { TransactionRepository } from "./transaction.repository";
-import { DatabaseOperation } from '../../../__tests__/database/in-memory/database.operation';
+import { InMemoryDatabaseContext } from '../../../__tests__/database/in-memory/database.context';
 
 describe('Payment repository test', () => {
   it('should save a transaction', async () => {
-    const inMemory = new DatabaseOperation<Transaction>();
+    const inMemory = new InMemoryDatabaseContext<Transaction>();
     const repository = new TransactionRepository(inMemory);
     const mockTransactionId = new Id();
     const transaction = new Transaction({
