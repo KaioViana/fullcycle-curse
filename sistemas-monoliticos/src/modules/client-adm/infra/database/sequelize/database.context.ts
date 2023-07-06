@@ -2,9 +2,9 @@ import { Address } from "../../../../@shared/domain/value-object/address.value-o
 import { Id } from "../../../../@shared/domain/value-object/id.value-object";
 import { ClientAdm } from "../../../domain/client.entity";
 import { ClientModel } from './client.model';
-import { IDatabaseOperation } from "./database.operation.interface";
+import { IDatabaseContext } from "../database.context.interface";
 
-class DatabaseOperation implements IDatabaseOperation<ClientAdm> {
+class DatabaseContext implements IDatabaseContext<ClientAdm> {
   async create(input: ClientAdm): Promise<void> {
     await ClientModel.create({
       id: input.id.id,
@@ -37,6 +37,8 @@ class DatabaseOperation implements IDatabaseOperation<ClientAdm> {
           state: client.state,
           zipCode: client.zipCode,
         }),
+        createdAt: client.createdAt,
+        updatedAt: client.updatedAt,
       });
     }
 
@@ -44,4 +46,4 @@ class DatabaseOperation implements IDatabaseOperation<ClientAdm> {
   }
 }
 
-export { DatabaseOperation };
+export { DatabaseContext };

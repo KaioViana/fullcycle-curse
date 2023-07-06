@@ -2,7 +2,7 @@ import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ClientAdm } from "../domain/client.entity";
 import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { ClientRepository } from "./client.repository";
-import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation";
+import { InMemoryDatabaseContext } from "../../../__tests__/database/in-memory/database.context";
 import { Address } from "../../@shared/domain/value-object/address.value-object";
 
 describe('Client repository test', () => {
@@ -12,7 +12,7 @@ describe('Client repository test', () => {
   });
 
   it('Add client', async () => {
-    const inMemory = new DatabaseOperation<ClientAdm>();
+    const inMemory = new InMemoryDatabaseContext<ClientAdm>();
     const repository = new ClientRepository(inMemory);
     const mockClientId = new Id();
     const mockClient = new ClientAdm({
@@ -38,7 +38,7 @@ describe('Client repository test', () => {
   });
 
   it('find a client', async () => {
-    const inMemory = new DatabaseOperation<ClientAdm>();
+    const inMemory = new InMemoryDatabaseContext<ClientAdm>();
     const repository = new ClientRepository(inMemory);
     const mockClientId = new Id();
     const mockClient = new ClientAdm({

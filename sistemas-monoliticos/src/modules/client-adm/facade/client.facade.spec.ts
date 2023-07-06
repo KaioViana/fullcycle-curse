@@ -1,6 +1,6 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { FacadeFactory } from "../factory/facade.factory";
-import { DatabaseOperation } from "../../../__tests__/database/in-memory/database.operation";
+import { InMemoryDatabaseContext } from "../../../__tests__/database/in-memory/database.context";
 import { ClientAdm } from "../domain/client.entity";
 import { Address } from "../../@shared/domain/value-object/address.value-object";
 
@@ -51,7 +51,7 @@ describe('client facade test', () => {
       }),
     });
 
-    DatabaseOperation.inMemoryData.push(mockClient);
+    InMemoryDatabaseContext.inMemoryData.push(mockClient);
 
     const client = await facade.find(mockClientId.id);
 
