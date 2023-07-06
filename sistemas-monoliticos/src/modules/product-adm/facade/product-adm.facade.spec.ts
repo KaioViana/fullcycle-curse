@@ -1,6 +1,6 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ProductAdmFacadeFactory } from "../factory/facade.factory";
-import { DatabaseOperation } from '../../../__tests__/database/in-memory/database.operation';
+import { InMemoryDatabaseContext } from '../../../__tests__/database/in-memory/database.context';
 import { Product } from "../domain/product.entity";
 
 describe("ProductAdmFacade test", () => {
@@ -18,7 +18,7 @@ describe("ProductAdmFacade test", () => {
 
     await productAdmFacade.addproduct(input);
 
-    const product = DatabaseOperation.inMemoryData.find(x => x.id.id === productIdMock.id)
+    const product = InMemoryDatabaseContext.inMemoryData.find(x => x.id.id === productIdMock.id)
 
     expect(product).toBeDefined();
     expect(product.id.id).toEqual(input.id);
@@ -46,7 +46,7 @@ describe("ProductAdmFacade test", () => {
       updatedAt: new Date(),
     });
 
-    DatabaseOperation.inMemoryData.push(product);
+    InMemoryDatabaseContext.inMemoryData.push(product);
 
     const result = await productAdmFacade.checkStock(input);
     expect(result).toStrictEqual({

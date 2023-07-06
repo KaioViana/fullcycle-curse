@@ -1,9 +1,9 @@
 import { Id } from "../../../../@shared/domain/value-object/id.value-object";
 import { Product } from "../../../domain/product.entity";
-import { IDatabaseOperation } from "./database.operation.interface";
+import { IDatabaseContext } from "../database.context.interface";
 import { ProductModel } from "./product.model";
 
-class DatabaseOperation implements IDatabaseOperation<Product> {
+class DatabaseContext implements IDatabaseContext<Product> {
   async create(input: Product): Promise<void> {
     await ProductModel.create({
       id: input.id.id,
@@ -38,4 +38,4 @@ class DatabaseOperation implements IDatabaseOperation<Product> {
   }
 }
 
-export { DatabaseOperation }
+export { DatabaseContext }
