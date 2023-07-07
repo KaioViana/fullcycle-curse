@@ -47,6 +47,7 @@ class PlaceOrderUseCase implements IUseCase {
     const order = new OrderEntity({
       client: clientEntity,
       products,
+
     });
 
     const payment = await this.paymentFacade.processPayment({

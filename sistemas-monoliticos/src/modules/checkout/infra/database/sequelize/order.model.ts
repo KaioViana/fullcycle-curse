@@ -1,23 +1,21 @@
 import { DataTypes, Sequelize } from "sequelize";
 import { Model, Table } from "sequelize-typescript";
 import { ProductModel } from "./product.model";
+import { ClientModel } from "./client.model";
 
 @Table
 class OrderModel extends Model {
   declare id: string;
-  declare clientId: string;
   declare status: string;
   declare total: number;
+  declare items: ProductModel[];
+  declare client: ClientModel;
 
   static initModel(instance: Sequelize) {
     OrderModel.init({
       id: {
         type: DataTypes.UUIDV4,
         primaryKey: true,
-      },
-      clientId: {
-        type: DataTypes.UUIDV4,
-        allowNull: false,
       },
       status: {
         type: DataTypes.STRING,
@@ -42,6 +40,7 @@ class OrderModel extends Model {
     });
 
     OrderModel.hasMany(ProductModel, { as: 'items', foreignKey: 'orderId' });
+    OrderModel.hasOne(ClientModel, { as: 'client', foreignKey: 'orderId' });
   }
 }
 
