@@ -1,5 +1,6 @@
 import { ProductAdmFacade } from "../facade/product-adm.facade";
 import { DatabaseContext } from "../infra/database/sequelize/database.context";
+import { DatabaseConnection } from "../infra/database/sequelize/database.connection";
 import { InMemoryDatabaseContext } from '../../../__tests__/database/in-memory/database.context';
 import { ProductRepository } from "../repository/product.repository";
 import { AddProductUseCase } from "../usecase/add-product/add-product.usecase";
@@ -8,6 +9,7 @@ import { Product } from "../domain/product.entity";
 
 class ProductAdmFacadeFactory {
   static create() {
+    DatabaseConnection.getConnectionInstance().sync();
     const sequelize = new DatabaseContext();
     const productRepository = new ProductRepository(sequelize);
     const addProductUsecase = new AddProductUseCase(productRepository);

@@ -32,10 +32,10 @@ class DatabaseContext implements IDatabaseContext<Product> {
         stock: product.stock,
         createdAt: product.createdAt,
         updatedAt: product.updatedAt,
-      })
+      });
     }
     return null;
   }
 }
 
-export { DatabaseContext }
+export { DatabaseContext };

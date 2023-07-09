@@ -1,18 +1,24 @@
-import { Sequelize, } from "sequelize-typescript";
+import { Sequelize } from "sequelize-typescript";
 import { ProductModel } from "./product.model";
 
 class DatabaseConnection {
   private static instance: DatabaseConnection = null;
   private static sequelize: Sequelize;
+  private models = [ProductModel];
 
-  constructor() {
+  private constructor() {
     DatabaseConnection.sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: ':memory_product',
-      logging: false,
-      sync: { force: true },
+      dialect: 'mysql',
+      dialectOptions: {
+        host: 'localhost',
+        port: '3306',
+        database: 'product_adm',
+        user: 'admin',
+        password: 'password',
+      },
     });
-    DatabaseConnection.sequelize.addModels([ProductModel])
+    DatabaseConnection.sequelize.addModels(this.models);
+    this.initModels();
   }
 
   static getConnectionInstance() {
@@ -35,6 +41,10 @@ class DatabaseConnection {
       await DatabaseConnection.sequelize.close();
       DatabaseConnection.instance = null;
     }
+  }
+
+  private initModels() {
+    this.models.forEach(model => model.initModel(DatabaseConnection.sequelize));
   }
 }
 

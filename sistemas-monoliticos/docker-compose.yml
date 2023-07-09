@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  product_adm_db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: product_adm
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - product_adm_database:/var/lib/mysql
+
+  client_adm_db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: client_adm
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    volumes:
+      - client_adm_database:/var/lib/mysql
+volumes:
+  product_adm_database:
+  client_adm_database:

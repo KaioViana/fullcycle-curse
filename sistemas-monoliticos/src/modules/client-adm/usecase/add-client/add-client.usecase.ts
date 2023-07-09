@@ -14,7 +14,14 @@ class AddClientUseCase implements IUseCase {
       name: input.name,
       email: input.email,
       document: input.document,
-      address: new Address(input.address),
+      address: new Address({
+        street: input.address.street,
+        number: input.address.number,
+        complement: input.address.complement,
+        city: input.address.city,
+        state: input.address.state,
+        zipCode: input.address.zipCode,
+      }),
     }
 
     const client = new ClientAdm(props);

@@ -14,7 +14,8 @@ class ProductModel extends Model {
   static initModel(instance: Sequelize) {
     ProductModel.init({
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
       name: {
@@ -26,11 +27,11 @@ class ProductModel extends Model {
         allowNull: false
       },
       purchasePrice: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       stock: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       createdAt: {

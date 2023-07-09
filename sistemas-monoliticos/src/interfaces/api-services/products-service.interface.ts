@@ -1,7 +1,7 @@
 import { createProductInputDto } from "../../api/dto/products.service.dto";
 
-interface IProductService {
+interface IProductsService {
   create(input: createProductInputDto): Promise<void>;
 }
 
-export { IProductService };
+export { IProductsService };
