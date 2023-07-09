@@ -10,9 +10,11 @@ import { FacadeFactory as PaymentFacadeFactory } from '../../payments/factory/fa
 import { FacadeFactory as InvoiceFacadeFactory } from '../../invoice/factory/facade.factory';
 import { CheckoutFacade } from "../facade/checkout.facade";
 import { OrderEntity } from "../domain/order.entity";
+import { DatabaseConnection } from '../infra/database/sequelize/database.connection';
 
 class FacadeFactory {
   static create(): ICheckoutFacade {
+    DatabaseConnection.getConnectionInstance().sync();
     const databaseContext = new DatabaseContext();
     const repository = new OrderRepository(databaseContext);
 
@@ -65,4 +67,4 @@ class FacadeFactory {
   }
 }
 
-export { FacadeFactory }
+export { FacadeFactory };

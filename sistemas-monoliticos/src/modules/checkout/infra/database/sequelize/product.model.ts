@@ -13,11 +13,12 @@ class ProductModel extends Model {
   static initModel(instance: Sequelize) {
     ProductModel.init({
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
       orderId: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         references: {
           model: OrderModel,
           key: 'id',
@@ -32,7 +33,7 @@ class ProductModel extends Model {
         primaryKey: true,
       },
       salesPrice: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       }
     }, {

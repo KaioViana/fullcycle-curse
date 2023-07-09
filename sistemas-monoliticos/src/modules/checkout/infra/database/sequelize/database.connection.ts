@@ -1,18 +1,20 @@
 import { Sequelize, } from "sequelize-typescript";
 import { ClientModel } from "./client.model";
+import { ProductModel } from "./product.model";
+import { OrderModel } from "./order.model";
 
 class DatabaseConnection {
   private static instance: DatabaseConnection = null;
   private static sequelize: Sequelize;
-  private models = [ClientModel];
+  private models = [OrderModel, ClientModel, ProductModel];
 
   private constructor() {
     DatabaseConnection.sequelize = new Sequelize({
       dialect: 'mysql',
       dialectOptions: {
         host: 'localhost',
-        port: '3307',
-        database: 'client_adm',
+        port: '3308',
+        database: 'checkout',
         user: 'admin',
         password: 'password',
       }

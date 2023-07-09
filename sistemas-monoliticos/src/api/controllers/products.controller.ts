@@ -16,7 +16,7 @@ class ProductsController {
     }
 
     await this.productsService.create(input);
-    return res.json({ message: 'Ok' }).status(200).send();
+    return res.json({ message: 'User created successfully' }).status(201).send();
   }
 }
 

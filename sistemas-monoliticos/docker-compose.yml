@@ -28,6 +28,21 @@ services:
       - '3307'
     volumes:
       - client_adm_database:/var/lib/mysql
+
+  checkout_db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: checkout
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3308:3306'
+    expose:
+      - '3308'
+    volumes:
+      - checkout_database:/var/lib/mysql
 volumes:
   product_adm_database:
   client_adm_database:
+  checkout_database:

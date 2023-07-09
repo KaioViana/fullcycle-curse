@@ -14,7 +14,8 @@ class OrderModel extends Model {
   static initModel(instance: Sequelize) {
     OrderModel.init({
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
       status: {
@@ -22,7 +23,7 @@ class OrderModel extends Model {
         allowNull: false,
       },
       total: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       createdAt: {

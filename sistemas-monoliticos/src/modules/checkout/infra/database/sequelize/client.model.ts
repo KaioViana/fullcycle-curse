@@ -17,13 +17,14 @@ class ClientModel extends Model {
   declare orderId: string;
 
   static initModel(instance: Sequelize) {
-    OrderModel.init({
+    ClientModel.init({
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
       orderId: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         references: {
           model: OrderModel,
           key: 'id',
@@ -46,7 +47,7 @@ class ClientModel extends Model {
         allowNull: false,
       },
       number: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       complement: {

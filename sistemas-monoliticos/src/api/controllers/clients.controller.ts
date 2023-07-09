@@ -23,7 +23,7 @@ class ClientsController {
     }
 
     const user = await this.clientsService.create(input);
-    return res.json({ data: user });
+    return res.json({ data: user }).status(201).send();
   }
 }
 
