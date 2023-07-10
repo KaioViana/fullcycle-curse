@@ -9,7 +9,7 @@ import { ProductsService } from "../services/products/products.service";
 import { CheckoutService } from '../services/checkout/checkout.service';
 import { CheckoutController } from '../controllers/checkout.controller';
 import { InvoiceService } from '../services/invoice/checkout.service';
-import { InvoiceController } from '../controllers/invoice.contorller';
+import { InvoiceController } from '../controllers/invoice.controller';
 
 class ControllersFactory {
 

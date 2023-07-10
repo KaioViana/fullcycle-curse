@@ -12,8 +12,13 @@ class InvoiceController {
       id,
     }
 
-    const invoice = await this.invoiceService.get(input);
-    return res.json({ data: invoice }).status(200).send();
+    try {
+      const invoice = await this.invoiceService.get(input);
+      return res.status(200).json({ data: invoice });
+    } catch (err) {
+      const error = err as Error;
+      return res.status(400).json({ data: { message: 'Bad request', error: error.message } });
+    }
   }
 }
 
