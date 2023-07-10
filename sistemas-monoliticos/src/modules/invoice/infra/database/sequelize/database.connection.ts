@@ -1,18 +1,19 @@
-import { Sequelize } from "sequelize-typescript";
-import { TransactionModel } from "./transaction.model";
+import { Sequelize, } from "sequelize-typescript";
+import { ProductModel } from "./product.model";
+import { InvoiceModel } from "./invoice.model";
 
 class DatabaseConnection {
   private static instance: DatabaseConnection = null;
   private static sequelize: Sequelize;
-  private models = [TransactionModel];
+  private models = [InvoiceModel, ProductModel];
 
-  constructor() {
+  private constructor() {
     DatabaseConnection.sequelize = new Sequelize({
       dialect: 'mysql',
       dialectOptions: {
         host: 'localhost',
-        port: '3311',
-        database: 'payment',
+        port: '3310',
+        database: 'invoice',
         user: 'admin',
         password: 'password',
       }
@@ -37,7 +38,6 @@ class DatabaseConnection {
 
   static async closeConnection() {
     if (DatabaseConnection.instance) {
-      await DatabaseConnection.sequelize.drop();
       await DatabaseConnection.sequelize.close();
       DatabaseConnection.instance = null;
     }

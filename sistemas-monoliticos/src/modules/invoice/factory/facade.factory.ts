@@ -6,9 +6,11 @@ import { InvoiceRepository } from "../repository/invoice.repository";
 import { FindUseCase } from "../usecase/find/find.usecase";
 import { GenerateUseCase } from "../usecase/generate/generate.usecase";
 import { InvoiceEntity } from "../domain/invoice.entity";
+import { DatabaseConnection } from "../infra/database/sequelize/database.connection";
 
 class FacadeFactory {
   static create(): IInvoiceFacade {
+    DatabaseConnection.getConnectionInstance().sync();
     const databaseContext = new DatabaseContext()
     const repository = new InvoiceRepository(databaseContext);
     const generateUsecase = new GenerateUseCase(repository);

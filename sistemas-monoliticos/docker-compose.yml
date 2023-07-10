@@ -57,8 +57,38 @@ services:
     volumes:
       - store_catalog_database:/var/lib/mysql
 
+  invoice_db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: invoice
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3310:3306'
+    expose:
+      - '3310'
+    volumes:
+      - invoice_database:/var/lib/mysql
+
+  payments_db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: payment
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3311:3306'
+    expose:
+      - '3311'
+    volumes:
+      - payment_database:/var/lib/mysql
+
 volumes:
   product_adm_database:
   client_adm_database:
   checkout_database:
   store_catalog_database:
+  invoice_database:
+  payment_database:

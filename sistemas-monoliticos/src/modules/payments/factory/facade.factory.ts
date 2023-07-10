@@ -5,9 +5,11 @@ import { DatabaseContext } from "../infra/database/sequelize/database.context";
 import { InMemoryDatabaseContext } from '../../../__tests__/database/in-memory/database.context';
 import { TransactionRepository } from "../repository/transaction.repository";
 import { ProcessPaymentUseCase } from "../usecase/process-payment/process-payment.usecase";
+import { DatabaseConnection } from "../infra/database/sequelize/database.connection";
 
 class FacadeFactory {
   static create(): IPaymentFacade {
+    DatabaseConnection.getConnectionInstance().sync();
     const databaseContext = new DatabaseContext();
     const repository = new TransactionRepository(databaseContext);
     const processPaymentUsecase = new ProcessPaymentUseCase(repository);
