@@ -15,8 +15,13 @@ class ProductsController {
       stock: body?.stock,
     }
 
-    await this.productsService.create(input);
-    return res.json({ message: 'User created successfully' }).status(201).send();
+    try {
+      const product = await this.productsService.create(input);
+      return res.json({ data: product }).status(201).send();
+    } catch (err) {
+      const error = err as Error;
+      return res.status(400).json({ data: { message: 'Bad request', error: error.message } });
+    }
   }
 }
 

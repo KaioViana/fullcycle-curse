@@ -9,7 +9,7 @@ class ProductsService implements IProductsService {
 
   async create(input: createProductInputDto): Promise<void> {
     try {
-      await this.productModule.addproduct(input);
+      return await this.productModule.addproduct(input);
     } catch (err) {
       throw new Error('Error while create product');
     }
