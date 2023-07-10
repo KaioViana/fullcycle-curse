@@ -23,6 +23,8 @@ class DatabaseContext implements IDatabaseContext<OrderEntity> {
         city: input.client.address.city,
         state: input.client.address.state,
         zipCode: input.client.address.zipCode,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       status: input.status,
       total: input.total,
@@ -31,7 +33,9 @@ class DatabaseContext implements IDatabaseContext<OrderEntity> {
         name: product.name,
         description: product.description,
         salesPrice: product.salesPrice,
-      }))
+      })),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }, {
       include: [
         { model: ProductModel, as: 'items' },
