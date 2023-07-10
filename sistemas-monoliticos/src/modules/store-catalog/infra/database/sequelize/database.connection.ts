@@ -4,15 +4,21 @@ import { ProductModel } from "./product.model";
 class DatabaseConnection {
   private static instance: DatabaseConnection = null;
   private static sequelize: Sequelize;
+  private models = [ProductModel];
 
-  constructor() {
+  private constructor() {
     DatabaseConnection.sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: ':memory_store',
-      logging: false,
-      sync: { force: true },
+      dialect: 'mysql',
+      dialectOptions: {
+        host: 'localhost',
+        port: '3309',
+        database: 'store_catalog',
+        user: 'admin',
+        password: 'password',
+      }
     });
-    DatabaseConnection.sequelize.addModels([ProductModel])
+    DatabaseConnection.sequelize.addModels(this.models);
+    this.initModels();
   }
 
   static getConnectionInstance() {
@@ -31,11 +37,15 @@ class DatabaseConnection {
 
   static async closeConnection() {
     if (DatabaseConnection.instance) {
-      await DatabaseConnection.sequelize.drop();
       await DatabaseConnection.sequelize.close();
       DatabaseConnection.instance = null;
     }
   }
+
+  private initModels() {
+    this.models.forEach(model => model.initModel(DatabaseConnection.sequelize));
+  }
+
 }
 
 export { DatabaseConnection } 

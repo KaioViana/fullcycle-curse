@@ -39,7 +39,6 @@ class DatabaseConnection {
 
   static async closeConnection() {
     if (DatabaseConnection.instance) {
-      await DatabaseConnection.sequelize.drop();
       await DatabaseConnection.sequelize.close();
       DatabaseConnection.instance = null;
     }

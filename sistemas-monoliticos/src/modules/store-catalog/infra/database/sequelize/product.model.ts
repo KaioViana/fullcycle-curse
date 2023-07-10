@@ -7,11 +7,15 @@ class ProductModel extends Model {
   declare name: string;
   declare description: string;
   declare salesPrice: number;
+  declare createdAt: Date;
+  declare updatedAt: Date;
+
 
   static initModel(instance: Sequelize) {
     ProductModel.init({
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
       name: {
@@ -23,12 +27,18 @@ class ProductModel extends Model {
         allowNull: false,
       },
       salesPrice: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
+      createdAt: {
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+      }
     }, {
       sequelize: instance,
-      tableName: 'catalog',
+      tableName: 'products',
       timestamps: false,
     });
   }

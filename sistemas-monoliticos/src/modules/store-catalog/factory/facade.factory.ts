@@ -6,9 +6,11 @@ import { ProductRepository } from "../repository/product.repository"
 import { FindAllProductsUseCase } from "../usecase/find-all-products/find-all-products.usecase";
 import { FindProductUseCase } from "../usecase/find-product/find-product.usecase"
 import { Product } from "../domain/product.entity";
+import { DatabaseConnection } from '../infra/database/sequelize/database.connection';
 
 class FacadeFactory {
   static create(): IStoreCatalogFacade {
+    DatabaseConnection.getConnectionInstance().sync();
     const databaseContext = new DatabaseContext();
     const productRepository = new ProductRepository(databaseContext);
     const findProductUsecase = new FindProductUseCase(productRepository);

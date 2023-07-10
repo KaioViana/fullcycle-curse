@@ -10,7 +10,7 @@ class CheckoutController {
     const { body } = req;
     const input = {
       clientId: body?.clientId,
-      products: body?.products?.maṕ((product: { productId: string; }) => ({
+      products: body?.products?.map((product: { productId: string; }) => ({
         productId: product?.productId,
       })),
     }

@@ -42,7 +42,23 @@ services:
       - '3308'
     volumes:
       - checkout_database:/var/lib/mysql
+
+  store_catalog_db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: store_catalog
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3309:3306'
+    expose:
+      - '3309'
+    volumes:
+      - store_catalog_database:/var/lib/mysql
+
 volumes:
   product_adm_database:
   client_adm_database:
   checkout_database:
+  store_catalog_database:
