@@ -21,9 +21,13 @@ class ClientsController {
         zipCode: body?.address?.zipCode,
       }
     }
-
-    const user = await this.clientsService.create(input);
-    return res.json({ data: user }).status(201).send();
+    try {
+      const user = await this.clientsService.create(input);
+      return res.status(201).json({ data: user });
+    } catch (err) {
+      const error = err as Error
+      return res.status(400).json({ data: { message: 'Bad request', error: error.message } });
+    }
   }
 }
 

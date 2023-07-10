@@ -33,6 +33,27 @@ class ControllersFactory {
       InvoiceController: new InvoiceController(invoiceService),
     }
   }
+
+  static createMock() {
+    const productFacade = ProductAdmFacadeFactory.createMock();
+    const productsService = new ProductsService(productFacade);
+
+    const clientFacade = ClientFacadeFactory.createMock();
+    const clientsService = new ClientsService(clientFacade);
+
+    const checkoutFacade = CheckoutFacadeFactory.createMock();
+    const checkoutService = new CheckoutService(checkoutFacade);
+
+    const invoiceFacade = InvoiceFacadeFactory.createMock();
+    const invoiceService = new InvoiceService(invoiceFacade);
+
+    return {
+      ProductsController: new ProductsController(productsService),
+      ClientsController: new ClientsController(clientsService),
+      CheckoutController: new CheckoutController(checkoutService),
+      InvoiceController: new InvoiceController(invoiceService),
+    }
+  }
 }
 
 export { ControllersFactory };

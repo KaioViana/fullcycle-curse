@@ -4,5 +4,5 @@ module.exports = {
   },
   clearMocks: true,
   coverageProvider: "v8",
-  modulePathIgnorePatterns: ["__tests__"]
+  modulePathIgnorePatterns: ["database"],
 };

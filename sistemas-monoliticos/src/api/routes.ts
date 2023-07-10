@@ -2,7 +2,9 @@ import { Router } from 'express';
 import { ControllersFactory } from './factory/controllers.factory';
 
 const routes = Router();
-const controllers = ControllersFactory.create();
+const controllers = process.env.NODE_ENV === 'test'
+  ? ControllersFactory.createMock()
+  : ControllersFactory.create();
 const {
   ProductsController,
   ClientsController,
