@@ -1,16 +1,10 @@
 import { Id } from "../../@shared/domain/value-object/id.value-object";
 import { ClientAdm } from "../domain/client.entity";
-import { DatabaseConnection } from "../../../__tests__/database.connection";
 import { ClientRepository } from "./client.repository";
 import { InMemoryDatabaseContext } from "../../../__tests__/database/in-memory/database.context";
 import { Address } from "../../@shared/domain/value-object/address.value-object";
 
 describe('Client repository test', () => {
-
-  afterEach(async () => {
-    await DatabaseConnection.closeConnection();
-  });
-
   it('Add client', async () => {
     const inMemory = new InMemoryDatabaseContext<ClientAdm>();
     const repository = new ClientRepository(inMemory);
