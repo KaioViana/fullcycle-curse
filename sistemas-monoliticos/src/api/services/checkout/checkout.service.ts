@@ -9,10 +9,8 @@ class CheckoutService implements ICheckoutService {
 
   async create(input: placeOrderInputDto): Promise<placeOrderOutputDto> {
     try {
-      console.log('INPUT', input)
       return await this.checkoutModule.placeOrder(input);
     } catch (err) {
-      console.log("ERROR", err);
       throw new Error('Error while place order');
     }
   }
