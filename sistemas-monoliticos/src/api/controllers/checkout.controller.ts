@@ -15,8 +15,13 @@ class CheckoutController {
       })),
     }
 
-    const checkout = await this.checkoutService.create(input);
-    return res.json({ data: checkout }).status(201).send();
+    try {
+      const checkout = await this.checkoutService.create(input);
+      return res.status(201).json({ data: checkout }).send();
+    } catch (err) {
+      const error = err as Error;
+      return res.json({ data: { message: 'Bad request', error: error.message } });
+    }
   }
 }
 
